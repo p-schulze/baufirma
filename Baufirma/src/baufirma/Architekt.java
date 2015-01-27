@@ -9,8 +9,6 @@ package baufirma;
  *
  * @author pascalschulze
  */
-public class Bauarbeiter extends Angestellter {
-    
-    
+public class Architekt extends Angestellter {
     
 }

@@ -9,6 +9,6 @@ package baufirma;
  *
  * @author pascalschulze
  */
-public class Auftrag {
+public class Transportgeraet extends Fahrzeug {
     
 }
