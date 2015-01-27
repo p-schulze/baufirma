@@ -11,4 +11,31 @@ package baufirma;
  */
 public class Pkw extends Fahrzeug {
     
+    String typ;
+    int sitzplaetze;
+    
+    public void Pkw () {
+        
+    }
+    
+    public void Pkw (String neuerTyp, int neueSitzplaetze){
+        typ = neuerTyp;
+        sitzplaetze = neueSitzplaetze;
+    }
+    
+    public void setTyp(String neuerTyp){
+        typ = neuerTyp;
+    }
+    
+    public String getTyp(){
+        return typ;
+    }
+    
+    public void setSitzplaetze(int neueSitzplaetze){
+        sitzplaetze = neueSitzplaetze;
+    }
+    
+    public float getSitzplaetze(){
+        return sitzplaetze;
+    }
 }
