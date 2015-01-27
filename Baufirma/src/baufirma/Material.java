@@ -11,4 +11,39 @@ package baufirma;
  */
 public class Material {
     
+    String name;
+    String typ;
+    int menge;
+    
+    public void Material(){
+        
+    }
+    
+    public void Material(String neuerName, String neuerTyp){
+        
+    }
+    
+    public void setName(String neuerName){
+        name = neuerName;
+    }
+    
+    public String getName () {
+        return name;
+    }
+    
+    public void setTyp(String neuerTyp){
+        typ = neuerTyp;
+    }
+    
+    public String getTyp(){
+        return typ;
+    }
+    
+    public void setMenge(int neueMenge){
+        menge = neueMenge;
+    }
+    
+    public int getMenge(){
+        return menge;
+    }
 }
