@@ -7,7 +7,7 @@ package baufirma;
 
 /**
  *
- * @author pascalschulze
+ * @author pascalschulze, tilllehmann
  */
 public class main {
 
