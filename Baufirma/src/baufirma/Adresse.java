@@ -10,5 +10,10 @@ package baufirma;
  * @author pascalschulze
  */
 public class Adresse {
+    String land, stadt, plz, strasse, telefonnummer, mailadresse;
+    int hausnummer;
     
+    Adresse () {
+    
+    }
 }
