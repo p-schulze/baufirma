@@ -16,4 +16,8 @@ public class Adresse {
     Adresse () {
     
     }
+    
+    Adresse (String neueStrasse) {
+    
+    }
 }
