@@ -35,7 +35,7 @@ public class Pkw extends Fahrzeug {
         sitzplaetze = neueSitzplaetze;
     }
     
-    public float getSitzplaetze(){
+    public int getSitzplaetze(){
         return sitzplaetze;
     }
 }

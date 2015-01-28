@@ -10,14 +10,14 @@ package baufirma;
  * @author pascalschulze
  */
 public class Adresse {
-    String land, stadt, plz, strasse, telefonnummer, mailadresse;
-    int hausnummer;
-    
-    Adresse () {
+    String land, stadt, strasse, telefonnummer, mailadresse;
+    int plz, hausnummer;
+
+    public void Adresse () {
         
     }
     
-    public void Adresse (String neuesLand, String neueStadt, String neuePlz, String neueStrasse, int neueHausnummer) {
+    public void Adresse (String neuesLand, String neueStadt, int neuePlz, String neueStrasse, int neueHausnummer) {
         land = neuesLand;
         stadt = neueStadt;
         plz = neuePlz;
@@ -25,7 +25,7 @@ public class Adresse {
         hausnummer = neueHausnummer;
     }
     
-    public void Adresse (String neuesLand, String neueStadt, String neuePlz, String neueStrasse, int neueHausnummer, String neueTelefonnummer, String neueMailadresse) {
+    public void Adresse (String neuesLand, String neueStadt, int neuePlz, String neueStrasse, int neueHausnummer, String neueTelefonnummer, String neueMailadresse) {
         land = neuesLand;
         stadt = neueStadt;
         plz = neuePlz;
@@ -51,11 +51,11 @@ public class Adresse {
         stadt = neueStadt;
     }
     
-    public String getPlz () {
+    public int getPlz () {
         return plz;
     }
     
-    public void setPlz (String neuePlz) {
+    public void setPlz (int neuePlz) {
         plz = neuePlz;
     }
     
