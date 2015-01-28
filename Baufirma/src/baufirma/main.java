@@ -18,4 +18,13 @@ public class main {
         // Hier könnte Pascals Code stehen.
     }
     
+    // Eingabe von Till
+    /*
+    {
+        // Das ist Tills Sequenzblock
+        //
+    }
+    */
+    
+    
 }
