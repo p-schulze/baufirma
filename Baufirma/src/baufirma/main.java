@@ -16,15 +16,7 @@ public class main {
      */
     public static void main(String[] args) {
         // Hier könnte Pascals Code stehen.
-    }
-    
-    // Eingabe von Till
-    /*
-    {
-        // Das ist Tills Sequenzblock
-        //
-    }
-    */
+    }    
     
     
 }
