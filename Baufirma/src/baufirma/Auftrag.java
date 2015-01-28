@@ -25,18 +25,18 @@ public class Auftrag {
     ArrayList<String[]> aufgabenListe;
   
     public void Auftrag () { 
-        bauarbeiterListe = new ArrayList<Bauarbeiter>();
-        fahrzeugListe = new ArrayList<Fahrzeug>();
-        materialListe = new ArrayList<Material>();
+        bauarbeiterListe = new ArrayList<>();
+        fahrzeugListe = new ArrayList<>();
+        materialListe = new ArrayList<>();
     }
     
     public void Auftrag (String neuerTitel, Projektleiter neuerProjektleiter) {
         titel = neuerTitel;
         projektleiter = neuerProjektleiter;
         
-        bauarbeiterListe = new ArrayList<Bauarbeiter>();
-        fahrzeugListe = new ArrayList<Fahrzeug>();
-        materialListe = new ArrayList<Material>();
+        bauarbeiterListe = new ArrayList<>();
+        fahrzeugListe = new ArrayList<>();
+        materialListe = new ArrayList<>();
     }
     
     public void setTitel (String neuerTitel) {
