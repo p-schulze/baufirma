@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 package baufirma;
+<<<<<<< Updated upstream
 import java.util.Scanner;
 import java.util.ArrayList;
+=======
+import java.io.*;
+>>>>>>> Stashed changes
 
 /**
  *
@@ -16,6 +20,7 @@ public class main {
     /**
      * @param args the command line arguments
      */
+<<<<<<< Updated upstream
     
     public static ArrayList<Auftrag> auftragListe;
     public static ArrayList<Projektleiter> projektleiterListe;
@@ -25,6 +30,17 @@ public class main {
     public static void main(String[] args) {        
         auftragListe = new ArrayList<>();
         startTextInterface();        
+=======
+    public static void main(String[] args) {
+       
+           
+    }   
+    
+    public void objekte () {
+        
+        
+    
+>>>>>>> Stashed changes
     }    
     
     public static void startTextInterface() {

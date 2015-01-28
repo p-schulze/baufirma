@@ -5,10 +5,12 @@
  */
 package baufirma;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author pascalschulze
  */
 public class Architekt extends Angestellter {
-    
+  
 }
