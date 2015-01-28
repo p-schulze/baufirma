@@ -15,13 +15,14 @@ public class Auftrag {
     Adresse adresse;
     Projektleiter projektleiter;
     Architekt architekt;
+    Statiker statiker;
     ArrayList<Bauarbeiter> bauarbeiterListe;
     ArrayList<Fahrzeug> fahrzeugListe;
     String auftraggeberName;
     Adresse auftraggeberAdresse;
     ArrayList<Material> materialListe;
-    // Aufgabeliste: Bonusfeature
-    // ArrayList[][] aufgabenListe;
+    //Aufgabeliste: Bonusfeature
+    ArrayList<String[]> aufgabenListe;
   
     public void Auftrag () { 
         bauarbeiterListe = new ArrayList<Bauarbeiter>();
@@ -68,6 +69,14 @@ public class Auftrag {
     
     public Architekt getArchitekt () {
         return architekt;
+    }
+    
+    public void setStatiker (Statiker neuerStatiker) {
+        statiker = neuerStatiker;
+    }
+    
+    public Statiker getStatiker () {
+        return statiker;
     }
     
     public void setBauarbeiterListe (ArrayList<Bauarbeiter> neueBauarbeiterListe) {
@@ -120,5 +129,17 @@ public class Auftrag {
      
       public void addMaterialToListe (Material neuesMaterial) {
         materialListe.add(neuesMaterial);
+    }
+      
+    public void setAufgabenListe (ArrayList<String[]> neueAufgabenListe){
+        aufgabenListe = neueAufgabenListe;
+    }
+    
+    public ArrayList<String[]> getAufgabenListe () {
+        return aufgabenListe;
+    }
+    
+    public void addToAufgabenListe (String[] neueAufgabe) {
+        aufgabenListe.add(neueAufgabe);
     }
 }
