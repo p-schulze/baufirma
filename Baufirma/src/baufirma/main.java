@@ -30,6 +30,12 @@ public class main {
     public static void main(String[] args) {        
         auftragListe = new ArrayList<>();
         startTextInterface();        
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+        //System.out.println("Hallo!");
+=======
+>>>>>>> Stashed changes
 =======
     public static void main(String[] args) {
        
@@ -40,6 +46,10 @@ public class main {
         
         
     
+>>>>>>> Stashed changes
+<<<<<<< Updated upstream
+=======
+>>>>>>> FETCH_HEAD
 >>>>>>> Stashed changes
     }    
     
@@ -116,7 +126,12 @@ public class main {
         return adresse;
     }
     
-   
+    /*
+    Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+        public void run() {
+       	// what you want to do
+         }
+    }));*/
     
     
 }
