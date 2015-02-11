@@ -5,11 +5,13 @@
  */
 package baufirma;
 
+import java.io.Serializable;
+
 /**
  *
  * @author pascalschulze
  */
-public class Adresse {
+public class Adresse implements Serializable {
     String land, stadt, strasse, telefonnummer, mailadresse;
     int plz, hausnummer;
 

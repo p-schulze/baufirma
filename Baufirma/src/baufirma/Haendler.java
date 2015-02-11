@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package baufirma;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author pascalschulze
  */
-public class Haendler {
+public class Haendler implements Serializable {
     
     String name;
     Adresse adresse;

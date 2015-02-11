@@ -4,12 +4,13 @@
  * and open the template in the editor.
  */
 package baufirma;
+import java.io.Serializable;
 import java.util.Date;
 /**
  *
  * @author pascalschulze
  */
-public class Angestellter {
+public class Angestellter implements Serializable {
     String name;
     String bezeichnung;
     Adresse adresse;
