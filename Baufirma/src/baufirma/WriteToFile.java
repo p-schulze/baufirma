@@ -13,8 +13,8 @@ public class WriteToFile {
     
     public static void main (String[] args) throws IOException{
  
-        String text = "Dieser Text wird in einer Datei gespeichert!";
-        Bauarbeiter franz = new Bauarbeiter();
+    String text = "Dieser Text wird in einer Datei gespeichert!";
+    Bauarbeiter franz = new Bauarbeiter();
     String dateiName = "Test.txt";
     FileOutputStream schreibeStrom = 
                      new FileOutputStream(dateiName);
@@ -23,5 +23,6 @@ public class WriteToFile {
     }
     schreibeStrom.close();
     System.out.println("Datei ist geschrieben!");
-  }
+    
+    }
 }

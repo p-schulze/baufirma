@@ -24,6 +24,11 @@ public class main {
     public static ArrayList<Architekt> architektListe;
     
     public static void main(String[] args) {        
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run() {
+               
+            }
+        }, "Shutdown-thread"));
         auftragListe = new ArrayList<>();
         startTextInterface();        
         //System.out.println("Hallo!");
@@ -104,14 +109,8 @@ public class main {
         }
         
         return adresse;
-    }
-    
-    /*
-    Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-        public void run() {
-       	// what you want to do
-         }
-    }));*/
+    }   
     
     
 }
+
