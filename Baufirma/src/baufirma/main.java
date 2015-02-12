@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 package baufirma;
+
 import java.util.Scanner;
 import java.util.ArrayList;
+import javax.swing.*;
+
+
 
 
 /**
@@ -17,7 +21,7 @@ public class main {
     /**
      * @param args the command line arguments
      */
-    
+
     public static ArrayList<Auftrag> auftragListe;
     public static ArrayList<Projektleiter> projektleiterListe;
     public static ArrayList<Statiker> statikerListe;
@@ -30,13 +34,15 @@ public class main {
             }
         }, "Shutdown-thread"));
         auftragListe = new ArrayList<>();
+        
+        Frame masterFrame = new Frame();
+        masterFrame.frameErstellen();
         startTextInterface();        
         //System.out.println("Hallo!");
     }
-    
-    public void objekte () {
-        
-    }    
+
+        //System.out.println("Hallo!");
+
     
     public static void startTextInterface() {
         System.out.println("Willkommen um Baufirma-Manager. Bitte wählen Sie, was Sie tun wollen!");

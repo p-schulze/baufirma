@@ -2,32 +2,9 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-        <group/>
-=======
->>>>>>> Stashed changes
         <group>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Auftrag.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Adresse.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Hebzeug.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/main.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Material.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Angestellter.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Haendler.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Bauarbeiter.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/ReadFromFile.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Fahrzeug.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Bagger.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Statiker.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Projektleiter.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Architekt.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Betonverabrteigungsgeraet.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Transportgeraet.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/Pkw.java</file>
-            <file>file:/Users/maximilianebert/Informatik/Baufirma/i/Baufirma/src/baufirma/WriteToFile.java</file>
+            <file>file:/Users/pascalschulze/2.%20Schule/Unterricht/12_Q2/INFO/baufirma/baufirma/Baufirma/src/baufirma/Frame.java</file>
+            <file>file:/Users/pascalschulze/2.%20Schule/Unterricht/12_Q2/INFO/baufirma/baufirma/Baufirma/src/baufirma/main.java</file>
         </group>
->>>>>>> FETCH_HEAD
     </open-files>
 </project-private>
