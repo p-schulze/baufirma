@@ -26,27 +26,36 @@ public class main {
     public static ArrayList<Projektleiter> projektleiterListe;
     public static ArrayList<Statiker> statikerListe;
     public static ArrayList<Architekt> architektListe;
+    public static Auftrag auftrag;
     
-    public static void main(String[] args) {        
+    public static void main(String[] args) {                
+        auftragListe = new ArrayList<>();        
+        auftragListe = ReadFromFile.read ();                
+        
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
-               
+              WriteToFile.write(auftragListe);
+                       
             }
         }, "Shutdown-thread"));
+
         auftragListe = new ArrayList<>();
         
         Frame masterFrame = new Frame();
         masterFrame.frameErstellen();
+
         startTextInterface();        
-        //System.out.println("Hallo!");
     }
 
+
         //System.out.println("Hallo!");
+
 
     
     public static void startTextInterface() {
-        System.out.println("Willkommen um Baufirma-Manager. Bitte wählen Sie, was Sie tun wollen!");
-        System.out.println("1 : Neuen Autrag erstellen");
+        prln("Willkommen um Baufirma-Manager. Bitte wählen Sie, was Sie tun wollen!");
+        prln("1 : Neuen Autrag erstellen");
+        prln("2 : Auftragsinformationen anzeigen");
         Scanner s = new Scanner (System.in);
         int choice = s.nextInt();
         s.nextLine();
@@ -56,31 +65,39 @@ public class main {
                 // Neuen Auftrag erstellen
                 auftragListe.add(new Auftrag());                    
                 int newIndex = auftragListe.size()-1;                    
-                System.out.println("Neuer Auftrag wurde erstellt.");
+                prln("Neuer Auftrag wurde erstellt.");
                 
-                System.out.println("Welchen Titel soll der Auftrag haben?");                
+                prln("Welchen Titel soll der Auftrag haben?");                
                 content = s.nextLine();
                 if (content != null) {
                     auftragListe.get(newIndex).setTitel(content);                   
                     content = null;
                 }                                                    
                 
-                System.out.println("Wie ist der Name des Auftraggebers?");
+                prln("Wie ist der Name des Auftraggebers?");
                 content = s.nextLine();
                 if (content != null) {
                     auftragListe.get(newIndex).setAuftraggeberName(content);
                     content = null;
                 }
                 
-                System.out.println("Erstellen Sie die Adresse des Auftraggebers!");
-                auftragListe.get(newIndex).setAdresse(createNewAdresseByUserInput(true));
+                prln("Erstellen Sie die Adresse des Auftraggebers!");
+                auftragListe.get(newIndex).setAuftraggeberAdresse(createNewAdresseByUserInput(true));
                 
-                System.out.println("Erstellen Sie die Adresse des Auftragsortes!");
+                prln("Erstellen Sie die Adresse des Auftragsortes!");
                 auftragListe.get(newIndex).setAdresse(createNewAdresseByUserInput(false));
-                         
+                
                 break;
             case 2:
+                prln("Welcher Auftrag soll angezeigt werden?");
+                for (int i = 0; i < auftragListe.size(); i++) {
+                    prln((i+1) + " : " + auftragListe.get(i).getTitel());
+                }
                 
+                int num = s.nextInt();                
+                printAuftrag(auftragListe.get(num-1));
+                s.nextLine();
+
                 break;
             default:
                     
@@ -94,29 +111,81 @@ public class main {
         
         Adresse adresse = new Adresse();
         
-        System.out.println("Land?");
+        prln("Land?");
         adresse.setLand(s.nextLine());
-        System.out.println("Stadt?");
+        prln("Stadt?");
         adresse.setStadt(s.nextLine());
-        System.out.println("PLZ?");
+        prln("PLZ?");
         adresse.setPlz(s.nextInt());
         s.nextLine();
-        System.out.println("Straße?");
+        prln("Straße?");
         adresse.setStrasse(s.nextLine());
-        System.out.println("Hausnummer?");
+        prln("Hausnummer?");
         adresse.setHausnummer(s.nextInt());        
         s.nextLine();
         
         if (metaData == true) {
-            System.out.println("Mailadresse?");
+            prln("Mailadresse?");
             adresse.setMailadresse(s.nextLine());
-            System.out.println("Telefonnummer?");
+            prln("Telefonnummer?");
             adresse.setTelefonnummer(s.nextLine());        
         }
         
         return adresse;
-    }   
+    }  
     
+    public static void printAuftrag (Auftrag toPrintAuftrag) {
+        if (toPrintAuftrag.getTitel() != null)
+            prln("Auftrag : " + toPrintAuftrag.getTitel());
+
+        if (toPrintAuftrag.getAdresse() != null) {
+            prln("Auftrag Adressdaten:");
+
+            if (toPrintAuftrag.getAdresse().getLand() != null) {
+                prln("Land : " + toPrintAuftrag.getAdresse().getLand()); }
+        
+            if (toPrintAuftrag.getAdresse().getLand() != null) {
+                prln("Stadt : " + toPrintAuftrag.getAdresse().getStadt()); }
+        
+            if (toPrintAuftrag.getAdresse().getPlz() != 0) {           
+                prln("PLZ : " + toPrintAuftrag.getAdresse().getPlz()); }
+        
+            if (toPrintAuftrag.getAdresse().getStrasse() != null) {           
+                prln("Straße : " + toPrintAuftrag.getAdresse().getStrasse()); }
+        
+            if (toPrintAuftrag.getAdresse().getHausnummer() != 0) {           
+               prln("Hausnummer : " + toPrintAuftrag.getAdresse().getHausnummer()); }
+        }
+                       
+        if (toPrintAuftrag.getAuftraggeberName() != null) {
+            prln("Auftraggebername : " + toPrintAuftrag.getAuftraggeberName()); 
+        }
+        
+        
+        if (toPrintAuftrag.getAuftraggeberAdresse() != null) {
+            prln("Auftraggeber Adressdaten:");
+
+            if (toPrintAuftrag.getAuftraggeberAdresse().getLand() != null)
+                prln("Land : " + toPrintAuftrag.getAuftraggeberAdresse().getLand());
+        
+            if (toPrintAuftrag.getAuftraggeberAdresse().getLand() != null)
+                prln("Stadt : " + toPrintAuftrag.getAuftraggeberAdresse().getStadt());
+        
+            if (toPrintAuftrag.getAuftraggeberAdresse().getPlz() != 0)            
+                prln("PLZ : " + toPrintAuftrag.getAuftraggeberAdresse().getPlz());
+        
+            if (toPrintAuftrag.getAuftraggeberAdresse().getStrasse() != null)            
+                prln("Straße : " + toPrintAuftrag.getAuftraggeberAdresse().getStrasse());
+        
+            if (toPrintAuftrag.getAuftraggeberAdresse().getHausnummer() != 0)            
+               prln("Hausnummer : " + toPrintAuftrag.getAuftraggeberAdresse().getHausnummer());
+        }
+    }
+    
+    public static void prln (String string) {
+        System.out.println(string);
+    } 
+        
     
 }
 

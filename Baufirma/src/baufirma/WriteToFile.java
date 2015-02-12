@@ -5,24 +5,30 @@
  */
 package baufirma;
 import java.io.*;
+import java.util.ArrayList;
 /**
  *
  * @author maxiprivat
  */
 public class WriteToFile {
     
-    public static void main (String[] args) throws IOException{
- 
-    String text = "Dieser Text wird in einer Datei gespeichert!";
-    Bauarbeiter franz = new Bauarbeiter();
-    String dateiName = "Test.txt";
-    FileOutputStream schreibeStrom = 
-                     new FileOutputStream(dateiName);
-    for (int i=0; i < text.length(); i++){
-      schreibeStrom.write((byte)text.charAt(i));
-    }
-    schreibeStrom.close();
-    System.out.println("Datei ist geschrieben!");
-    
+    public static void write (ArrayList<Auftrag> arraylist) {
+        try {
+        ObjectOutputStream out;       
+        FileOutputStream file = new FileOutputStream("test.txt");
+        out = new ObjectOutputStream(file);
+        out.writeObject(arraylist);
+
+        out.close();
+        System.out.println("Object written to file");        
+        } 
+        catch (FileNotFoundException ex) {
+            System.out.println("Error with specified file") ;
+            ex.printStackTrace();
+        }
+        catch (IOException ex) {
+            System.out.println("Error with I/O processes") ;
+            ex.printStackTrace();
+        }
     }
 }

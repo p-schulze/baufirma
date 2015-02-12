@@ -5,11 +5,13 @@
  */
 package baufirma;
 
+import java.io.Serializable;
+
 /**
  *
  * @author pascalschulze
  */
-public class Fahrzeug {
+public class Fahrzeug implements Serializable {
     
     String bezeichnung, kennzeichen, modell;
     boolean selbstfahrend;

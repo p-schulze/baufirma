@@ -5,12 +5,13 @@
  */
 package baufirma;
 import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  *
  * @author pascalschulze, till lehmann
  */
-public class Auftrag {
+public class Auftrag extends Object implements Serializable {
     String titel;
     Adresse adresse;
     Projektleiter projektleiter;

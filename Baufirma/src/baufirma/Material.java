@@ -5,11 +5,13 @@
  */
 package baufirma;
 
+import java.io.Serializable;
+
 /**
  *
  * @author pascalschulze
  */
-public class Material {
+public class Material implements Serializable {
     
     String name;
     String typ;
