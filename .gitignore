@@ -1,5 +1,9 @@
 /Baufirma/build/
 /Baufirma/dist/
+<<<<<<< Updated upstream
 Baufirma/nbproject/private/private.properties
+=======
+Baufirma/nbproject/private/private.xml
+>>>>>>> Stashed changes
 
 Baufirma/nbproject/private/private.xml

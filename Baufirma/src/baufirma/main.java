@@ -63,7 +63,7 @@ public class main {
         Frame masterFrame = new Frame();
         masterFrame.frameErstellen();
 
-        startTextInterface();        
+       // startTextInterface();        
     }
 
 
