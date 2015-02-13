@@ -60,10 +60,17 @@ public class main {
 
         auftragListe = new ArrayList<>();
         
+        /*
         Frame masterFrame = new Frame();
         masterFrame.frameErstellen();
+<<<<<<< Updated upstream
 
        // startTextInterface();        
+=======
+        */
+        
+        startTextInterface();        
+>>>>>>> Stashed changes
     }
 
 

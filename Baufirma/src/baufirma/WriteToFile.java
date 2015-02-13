@@ -20,7 +20,6 @@ public class WriteToFile {
         out.writeObject(arraylist);
 
         out.close();
-        System.out.println("Object written to file");        
         } 
         catch (FileNotFoundException ex) {
             System.out.println("Error with specified file") ;
