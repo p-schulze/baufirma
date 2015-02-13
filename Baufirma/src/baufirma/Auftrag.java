@@ -26,7 +26,6 @@ public class Auftrag extends Object implements Serializable {
   
     public void Auftrag () { 
         bauarbeiterListe = new ArrayList<>();
-        fahrzeugListe = new ArrayList<>();
         materialListe = new ArrayList<>();
     }
     
@@ -35,7 +34,6 @@ public class Auftrag extends Object implements Serializable {
         projektleiter = neuerProjektleiter;
         
         bauarbeiterListe = new ArrayList<>();
-        fahrzeugListe = new ArrayList<>();
         materialListe = new ArrayList<>();
     }
     
@@ -85,15 +83,7 @@ public class Auftrag extends Object implements Serializable {
     
     public ArrayList<Bauarbeiter> getBauarbeiterListe () {
         return bauarbeiterListe;
-    }
-    
-    public void setFahrzeugListe (ArrayList<Fahrzeug> neueFahrzeugListe) {
-        fahrzeugListe = neueFahrzeugListe;
-    }
-    
-    public ArrayList<Fahrzeug> getFahrzeugListe () {
-        return fahrzeugListe;
-    }
+    }   
     
     public void setAuftraggeberName (String neuerAuftraggeberName) {
         auftraggeberName = neuerAuftraggeberName;
