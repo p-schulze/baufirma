@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class Adresse implements Serializable {
     String land, stadt, strasse, telefonnummer, mailadresse;
-    int plz, hausnummer;
+    int hausnummer;
 
     public void Adresse () {
         
@@ -22,7 +22,6 @@ public class Adresse implements Serializable {
     public void Adresse (String neuesLand, String neueStadt, int neuePlz, String neueStrasse, int neueHausnummer) {
         land = neuesLand;
         stadt = neueStadt;
-        plz = neuePlz;
         strasse = neueStrasse;
         hausnummer = neueHausnummer;
     }
@@ -30,7 +29,6 @@ public class Adresse implements Serializable {
     public void Adresse (String neuesLand, String neueStadt, int neuePlz, String neueStrasse, int neueHausnummer, String neueTelefonnummer, String neueMailadresse) {
         land = neuesLand;
         stadt = neueStadt;
-        plz = neuePlz;
         strasse = neueStrasse;
         hausnummer = neueHausnummer;
         telefonnummer = neueTelefonnummer;
@@ -51,14 +49,6 @@ public class Adresse implements Serializable {
     
     public void setStadt (String neueStadt) {
         stadt = neueStadt;
-    }
-    
-    public int getPlz () {
-        return plz;
-    }
-    
-    public void setPlz (int neuePlz) {
-        plz = neuePlz;
     }
     
     public String getStrasse () {

@@ -12,5 +12,7 @@ import java.util.ArrayList;
  * @author pascalschulze
  */
 public class Architekt extends Angestellter {
-  
+    public void Architekt () { 
+        
+    }
 }

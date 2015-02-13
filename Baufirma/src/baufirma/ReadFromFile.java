@@ -13,11 +13,11 @@ import java.util.ArrayList;
  */
 public class ReadFromFile {
     
-    public static ArrayList<Auftrag> read () {
+    public static ArrayList read (String filename) {
         Object obj = new Object();
         try {
             // Read from disk using FileInputStream
-            FileInputStream f_in = new FileInputStream("test.txt");
+            FileInputStream f_in = new FileInputStream(filename);
 
             // Read object using ObjectInputStream
             ObjectInputStream obj_in = new ObjectInputStream (f_in);
@@ -28,9 +28,9 @@ public class ReadFromFile {
             if (obj instanceof ArrayList)
             {
                 // Cast object to a Vector
-                ArrayList<Auftrag> auftragListe = (ArrayList<Auftrag>) obj;
+                ArrayList<Object> liste = (ArrayList<Object>) obj;
 
-                return auftragListe;
+                return liste;
             }
         } 
         catch (FileNotFoundException ex) {
@@ -45,7 +45,7 @@ public class ReadFromFile {
             System.out.println("Error with Class") ;
             ex.printStackTrace();
         }                
-        ArrayList<Auftrag> auftragListe = new ArrayList<>();
-        return auftragListe;
+        ArrayList<Object> liste = new ArrayList<>();
+        return liste;
     } 
 }

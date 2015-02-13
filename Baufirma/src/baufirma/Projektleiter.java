@@ -5,10 +5,13 @@
  */
 package baufirma;
 
+
 /**
  *
  * @author pascalschulze
  */
 public class Projektleiter extends Angestellter {
-    
+    public void Projektleiter () { 
+        
+    }
 }

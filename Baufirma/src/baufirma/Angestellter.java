@@ -10,9 +10,8 @@ import java.util.Date;
  *
  * @author pascalschulze
  */
-public class Angestellter implements Serializable {
+public class Angestellter extends Object implements Serializable {
     String name;
-    String bezeichnung;
     Adresse adresse;
     float gehalt;
     Date bescheaftigtSeit;
@@ -25,7 +24,6 @@ public class Angestellter implements Serializable {
     public void Angestellter (String neuerName, String neueBezeichnung, Adresse neueAdresse, Date neuBescheaftigtSeit) {
         aktiv = false;
         name = neuerName;
-        bezeichnung = neueBezeichnung;
         adresse = neueAdresse;
         bescheaftigtSeit = neuBescheaftigtSeit;
     }
@@ -37,11 +35,6 @@ public class Angestellter implements Serializable {
     public String getName () {
         return name;
     }
-    
-    public void setBezeichnung (String neueBezeichnung) {
-        bezeichnung = neueBezeichnung;
-    }
-    
     public void setAdresse (Adresse neueAdresse) {
         adresse = neueAdresse;
     }
