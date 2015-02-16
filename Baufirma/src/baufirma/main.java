@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 
-
-
 /**
  *
  * @author pascalschulze, tilllehmann
@@ -33,6 +31,7 @@ public class main {
     public static void main(String[] args) {                
         s = new Scanner (System.in);
         content = null;
+        
         auftragListe = new ArrayList<>();       
         auftragListe = (ArrayList<Auftrag>)ReadFromFile.read ("auftragListe.data");                
 
@@ -46,7 +45,7 @@ public class main {
         architektListe = (ArrayList<Architekt>)ReadFromFile.read ("architektListe.data");               
         
         bauarbeiterListe = new ArrayList<>();
-        bauarbeiterListe = (ArrayList<Bauarbeiter>)ReadFromFile.read ("bauarbeiterListe.data");               
+        bauarbeiterListe = (ArrayList<Bauarbeiter>)ReadFromFile.read ("bauarbeiterListe.data");              
         
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
@@ -57,32 +56,21 @@ public class main {
               WriteToFile.write(bauarbeiterListe, "bauarbeiterListe.data");         
             }
         }, "Shutdown-thread"));
-
-        auftragListe = new ArrayList<>();
         
         /*
         Frame masterFrame = new Frame();
         masterFrame.frameErstellen();
-<<<<<<< Updated upstream
-
-       // startTextInterface();        
-=======
         */
         
         startTextInterface();        
->>>>>>> Stashed changes
     }
-
-
-        //System.out.println("Hallo!");
-
-
     
     public static void startTextInterface() {
         prln("Willkommen um Baufirma-Manager. Bitte wählen Sie, was Sie tun wollen!");
         prln("1 : Neuen Autrag erstellen");
         prln("2 : Auftragsinformationen anzeigen");
         prln("3 : Angestellten hinzufügen");
+        prln("4 : Angestellten anzeigen");
         int choice = s.nextInt();
         s.nextLine();
         switch (choice) {
@@ -95,6 +83,9 @@ public class main {
             case 3:
                 addAngestellten();
                 break;
+            case 4:
+                showAngestellten();
+                break;                
             default:
                     
                 break;
@@ -160,13 +151,15 @@ public class main {
     
     public static void showAuftrag() {
         prln("Welcher Auftrag soll angezeigt werden?");
+        prln("Länge:" + auftragListe.size());
         for (int i = 0; i < auftragListe.size(); i++) {
                prln((i+1) + " : " + auftragListe.get(i).getTitel());
         }
 
-        int num = s.nextInt();                
+        int num = s.nextInt();   
+        s.nextLine();        
+        
         printAuftrag(auftragListe.get(num-1));
-        s.nextLine();
 
     }
     
@@ -276,10 +269,45 @@ public class main {
         s.nextLine();                
     }
     
+    public static void showAngestellten () {
+        prln("Welche Angestelltengruppe möchten sie sehen?");
+        prln("1 : Projektleiter");
+        prln("2 : Bauarbeiter");
+        prln("3 : Architekt");
+        prln("4 : Statiker");
+        int choice = s.nextInt();
+        s.nextLine();
+                
+        switch (choice) {
+            case 1:
+                printAngestellten(projektleiterListe);                
+                break;
+            case 2:
+                printAngestellten(bauarbeiterListe);
+                break;
+            case 3:
+                printAngestellten(architektListe);
+                break;
+            case 4:
+                printAngestellten(statikerListe);
+                break;    
+            default:
+                    
+                break;
+        }
+    }
+    
+    public static void printAngestellten (ArrayList<? extends Angestellter> liste) {
+        for (int i = 0; i < liste.size(); i++) {
+               prln((i+1) + " : " + liste.get(i).getName());
+        }
+    }
+        
     public static void prln (String string) {
         System.out.println(string);        
     } 
-        
+   
+    
     
 }
 

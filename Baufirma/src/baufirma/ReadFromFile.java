@@ -25,10 +25,10 @@ public class ReadFromFile {
             // Read an object
             obj = obj_in.readObject();            
             
+            
             if (obj instanceof ArrayList)
-            {
-                // Cast object to a Vector
-                ArrayList<Object> liste = (ArrayList<Object>) obj;
+            {                
+                ArrayList liste = (ArrayList)obj;
 
                 return liste;
             }
@@ -45,7 +45,7 @@ public class ReadFromFile {
             System.out.println("Error with Class") ;
             ex.printStackTrace();
         }                
-        ArrayList<Object> liste = new ArrayList<>();
+        ArrayList liste = new ArrayList<>();
         return liste;
     } 
 }
