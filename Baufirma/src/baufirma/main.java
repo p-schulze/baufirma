@@ -107,11 +107,9 @@ public class main {
         }                                                    
 
         prln("Wie ist der Name des Auftraggebers?");
-        content = s.nextLine();
-        if (content != null) {
-            auftragListe.get(newIndex).setAuftraggeberName(content);
-            content = null;
-        }
+        content = s.nextLine();        
+        auftragListe.get(newIndex).setAuftraggeberName(content);
+        content = null;        
 
         prln("Erstellen Sie die Adresse des Auftraggebers!");
         auftragListe.get(newIndex).setAuftraggeberAdresse(createNewAdresseByUserInput(true));
