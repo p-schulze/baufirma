@@ -126,10 +126,10 @@ public class Frame {
                     case 0:
                         System.out.println("Bauarbeiter");
                         
-                        bauarbeiterListe.add(new Bauarbeiter());
-                        bauarbeiterListe.get(bauarbeiterListe.size()-1).setGehalt(neuerAngestellterGehalt);
-                        bauarbeiterListe.get(bauarbeiterListe.size()-1).setName(neuerAngestellterName);
-                        neueAdresseFrame(bauarbeiterListe.get(bauarbeiterListe.size()-1));
+                        main.bauarbeiterListe.add(new Bauarbeiter());
+                        main.bauarbeiterListe.get(main.bauarbeiterListe.size()-1).setGehalt(neuerAngestellterGehalt);
+                        main.bauarbeiterListe.get(main.bauarbeiterListe.size()-1).setName(neuerAngestellterName);
+                        neueAdresseFrame(main.bauarbeiterListe.get(main.bauarbeiterListe.size()-1));
                         break;
                     case 1:
                         statikerListe.add(new Statiker());
