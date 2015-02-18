@@ -71,17 +71,12 @@ public class main {
         
         Frame masterFrame = new Frame();
         masterFrame.frameErstellen();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        */
-=======
-        
->>>>>>> Stashed changes
+
         statement = true;
         while (statement) {            
             startTextInterface();        
         }
-=======
+
 
         
     //    startTextInterface();        
@@ -89,7 +84,6 @@ public class main {
         
        // startTextInterface();        
 
->>>>>>> Stashed changes
     }
     
     public static void startTextInterface() {
