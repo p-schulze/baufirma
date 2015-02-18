@@ -1,7 +1,8 @@
 package baufirma;
+import static baufirma.main.s;
 import java.awt.BorderLayout;
 import javax.swing.*;
-
+import java.util.ArrayList;
 
 /**
  *
@@ -9,6 +10,12 @@ import javax.swing.*;
  */
 public class Frame {
     
+    public static ArrayList<Auftrag> auftragListe = new ArrayList<>();
+    public static ArrayList<Projektleiter> projektleiterListe = new ArrayList<>();
+    public static ArrayList<Statiker> statikerListe = new ArrayList<>();
+    public static ArrayList<Architekt> architektListe = new ArrayList<>();
+    public static ArrayList<Bauarbeiter> bauarbeiterListe = new ArrayList<>();               
+    public static String content;
     
     public void Frame () {}
     
@@ -20,24 +27,24 @@ public class Frame {
         JMenu menu1 = new JMenu("Hinzufügen");
         JMenuItem angestellter1 = new JMenuItem("Angestellter");
         JMenuItem auftrag1 = new JMenuItem("Auftrag");
-        JMenuItem kunden1 = new JMenuItem("Kunden");
+        JMenuItem kunden1 = new JMenuItem("Kunde");
         
         JMenu menu2 = new JMenu("Bearbeiten");
         JMenuItem angestellter2 = new JMenuItem("Angestellter");
-        JMenuItem fahrzeug2 = new JMenuItem("Fahrzeug");
-        JMenuItem kunden2 = new JMenuItem("Kunden");
+        JMenuItem kunden2 = new JMenuItem("Kunde");
+        JMenuItem auftrag2 = new JMenuItem("Auftrag");
         
         JMenu menu3 = new JMenu("Übersicht");
         JMenuItem angestellter3 = new JMenuItem("Angestellter");
         JMenuItem auftrag3 = new JMenuItem("Auftrag");
-        JMenuItem kunden3 = new JMenuItem("Kunden");
+        JMenuItem kunden3 = new JMenuItem("Kunde");
         
   
         menu1.add(angestellter1);
         menu1.add(auftrag1);
         menu1.add(kunden1);
         menu2.add(angestellter2);
-        menu2.add(fahrzeug2);
+        menu2.add(auftrag2);
         menu2.add(kunden2);
         menu3.add(angestellter3);
         menu3.add(auftrag3);
@@ -52,8 +59,21 @@ public class Frame {
         angestellter1.addActionListener(new java.awt.event.ActionListener() {
             // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                Frame neuerArbeiter = new Frame();
-                neuerArbeiter.neuerArbeiterFrame();
+                neuerArbeiterFrame();
+            }
+        });
+        
+        auftrag1.addActionListener(new java.awt.event.ActionListener() {
+            // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                neuerAuftragFrame();
+            }
+        });
+        
+        kunden1.addActionListener(new java.awt.event.ActionListener() {
+            // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                neuerKundeFrame();
             }
         });
        
@@ -65,7 +85,7 @@ public class Frame {
         arbeiterFrame.setSize(250,300);
         arbeiterFrame.setLocation(450, 0);
         JPanel arbeiterPanel = new JPanel();
-       
+        
         JLabel frage = new JLabel("Was für ein Arbeiter?", JLabel.CENTER);
         arbeiterPanel.add(frage);
         String arbeiter[] = {"Bauarbeiter", "Statiker", "Architekt", "Projektleiter"};
@@ -73,80 +93,178 @@ public class Frame {
         JComboBox arbeiterAuswahl = new JComboBox(arbeiter);
         
         JLabel nameLabel = new JLabel("Name", JLabel.CENTER);
-        JLabel adresseLabel = new JLabel("Daten", JLabel.CENTER);
+        JLabel gehaltLabel = new JLabel("Gehalt in € (Form: xxx.yy)", JLabel.CENTER);
+        JTextField tfName = new JTextField("", JTextField.CENTER);
+        JTextField tfGehalt = new JTextField("", JTextField.CENTER);
+        JButton erstellenButton = new JButton("Erstellen");
+        
+        arbeiterPanel.add(arbeiterAuswahl);
+        
+        arbeiterPanel.add(nameLabel);
+        arbeiterPanel.add(tfName);
+        arbeiterPanel.add(gehaltLabel);
+        arbeiterPanel.add(erstellenButton);
+        arbeiterPanel.add(tfGehalt);
+        arbeiterPanel.add(erstellenButton);
+        arbeiterPanel.setLayout( new java.awt.GridLayout( 7, 2 ) );
+        arbeiterFrame.add(arbeiterPanel);
+        arbeiterFrame.setVisible(true);
+        
+        erstellenButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                int index = arbeiterAuswahl.getSelectedIndex();
+                String neuerAngestellterName = tfName.getText();
+                float neuerAngestellterGehalt;
+                if(tfGehalt.getText() != null){
+                neuerAngestellterGehalt = Float.parseFloat(tfGehalt.getText());
+                }
+                else {neuerAngestellterGehalt = 0.0f;}
+                
+                if (neuerAngestellterName != null){
+                    arbeiterFrame.setVisible(false);
+                switch (index) {
+                    case 0:
+                        System.out.println("Bauarbeiter");
+                        
+                        bauarbeiterListe.add(new Bauarbeiter());
+                        bauarbeiterListe.get(bauarbeiterListe.size()-1).setGehalt(neuerAngestellterGehalt);
+                        bauarbeiterListe.get(bauarbeiterListe.size()-1).setName(neuerAngestellterName);
+                        neueAdresseFrame(bauarbeiterListe.get(bauarbeiterListe.size()-1));
+                        break;
+                    case 1:
+                        statikerListe.add(new Statiker());
+                        statikerListe.get(statikerListe.size()-1).setGehalt(neuerAngestellterGehalt);
+                        statikerListe.get(statikerListe.size()-1).setName(neuerAngestellterName);
+                        neueAdresseFrame(statikerListe.get(statikerListe.size()-1));
+                        break;
+                    case 2:
+                        architektListe.add(new Architekt());
+                        architektListe.get(architektListe.size()-1).setGehalt(neuerAngestellterGehalt);
+                        architektListe.get(architektListe.size()-1).setName(neuerAngestellterName);
+                        neueAdresseFrame(architektListe.get(architektListe.size()-1));
+                        break;
+                    case 3:
+                        projektleiterListe.add(new Projektleiter());
+                        projektleiterListe.get(projektleiterListe.size()-1).setGehalt(neuerAngestellterGehalt);
+                        projektleiterListe.get(projektleiterListe.size()-1).setName(neuerAngestellterName);
+                        neueAdresseFrame(projektleiterListe.get(projektleiterListe.size()-1));
+                        break;    
+                    default:   
+                        break;
+                }
+                }
+                else{System.out.println("Geben sie einen Name ein.");}
+            }
+        });
+   }
+  
+   public void neuerKundeFrame () {
+        JDialog arbeiterFrame = new JDialog();
+        arbeiterFrame.setSize(250,300);
+        arbeiterFrame.setLocation(450, 0);
+        JPanel auftragPanel = new JPanel();
+       
+        JLabel nameLabel = new JLabel("Name", JLabel.CENTER);
+        JLabel adresseLabel = new JLabel("Adresse", JLabel.CENTER);
         JLabel beschaeftigtSeitLabel = new JLabel("Beschäftigt seit", JLabel.CENTER);
         JTextField tfName = new JTextField("", JTextField.CENTER);
         JButton adresseButton = new JButton("Hinzufügen");
         JTextField tfZeit = new JTextField("", JTextField.CENTER);
         JButton erstellenButton = new JButton("Erstellen");
         
-        arbeiterPanel.add(arbeiterAuswahl);
-        arbeiterPanel.add(erstellenButton);
-        arbeiterPanel.add(nameLabel);
-        arbeiterPanel.add(tfName);
-        arbeiterPanel.add(adresseLabel);
-        arbeiterPanel.add(adresseButton);
-        arbeiterPanel.add(beschaeftigtSeitLabel);
-        arbeiterPanel.add(tfZeit);
-        arbeiterPanel.add(erstellenButton);
-        arbeiterPanel.setLayout( new java.awt.GridLayout( 10, 2 ) );
-        arbeiterFrame.add(arbeiterPanel);
+        
+        auftragPanel.add(erstellenButton);
+        auftragPanel.add(nameLabel);
+        auftragPanel.add(tfName);
+        auftragPanel.add(adresseLabel);
+        auftragPanel.add(adresseButton);
+        auftragPanel.add(beschaeftigtSeitLabel);
+        auftragPanel.add(tfZeit);
+        auftragPanel.add(erstellenButton);
+        auftragPanel.setLayout( new java.awt.GridLayout( 10, 2 ) );
+        arbeiterFrame.add(auftragPanel);
         arbeiterFrame.setVisible(true);
         
         adresseButton.addActionListener(new java.awt.event.ActionListener() {
             // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                Frame neueAdresse = new Frame();
-                neueAdresse.neueAdresseFrame();
+                
             }
         });
         
         erstellenButton.addActionListener(new java.awt.event.ActionListener() {
             // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                Frame neueAdresse = new Frame();
-                neueAdresse.neueAdresseFrame();
+                
+               
             }
         });
    }
-  
-   public void neuesFahrzeugFrame () {
-        JDialog arbeiterFrame = new JDialog();
-        arbeiterFrame.setSize(250,300);
-        arbeiterFrame.setLocation(450, 0);
-        JPanel arbeiterPanel = new JPanel();
+   
+   public void neuerAuftragFrame () {
+        JDialog auftragFrame = new JDialog();
+        auftragFrame.setSize(250,300);
+        auftragFrame.setLocation(450, 0);
+        auftragFrame.setResizable(false);
+        JPanel auftragPanel = new JPanel();
        
-        JLabel frage = new JLabel("Was für ein Arbeiter?", JLabel.CENTER);
-        arbeiterPanel.add(frage);
-        String arbeiter[] = {"Bauarbeiter", "Statiker", "Architekt", "Projektleiter"};
- 
-        JComboBox arbeiterAuswahl = new JComboBox(arbeiter);
-        
-        JLabel nameLabel = new JLabel("Name", JLabel.CENTER);
-        JLabel adresseLabel = new JLabel("Adresse", JLabel.CENTER);
-        JLabel beschaeftigtSeitLabel = new JLabel("Beschäftigt seit", JLabel.CENTER);
+      
+        JLabel titelLabel = new JLabel("Welchen Titel soll der Auftrag haben?", JLabel.CENTER);
+        JLabel nameLabel = new JLabel("Wie ist der Name des Auftraggebers?", JLabel.CENTER);
+        JLabel datenAuftraggeberLabel = new JLabel("Daten des Auftraggebers", JLabel.CENTER);
+        JLabel datenAuftragsortLabel = new JLabel("Daten des Auftragortes", JLabel.CENTER);
+        JTextField tfTitel = new JTextField("", JTextField.CENTER);
         JTextField tfName = new JTextField("", JTextField.CENTER);
-        JTextField tfAdresse = new JTextField("", JTextField.CENTER);
-        JTextField tfZeit = new JTextField("", JTextField.CENTER);
-        JButton erstellenButton = new JButton("Erstellen");
+        JButton datenAuftraggeberButton = new JButton("Hinzufügen");
+        JButton datenAuftragsortButton = new JButton("Hinzufügen");
+        JButton auftragSpeichernButton = new JButton("Speichern");
         
-        arbeiterPanel.add(arbeiterAuswahl);
-        arbeiterPanel.add(erstellenButton);
-        arbeiterPanel.add(nameLabel);
-        arbeiterPanel.add(tfName);
-        arbeiterPanel.add(adresseLabel);
-        arbeiterPanel.add(tfAdresse);
-        arbeiterPanel.add(beschaeftigtSeitLabel);
-        arbeiterPanel.add(tfZeit);
-        arbeiterPanel.add(erstellenButton);
-        arbeiterPanel.setLayout( new java.awt.GridLayout( 10, 2 ) );
-        arbeiterFrame.add(arbeiterPanel);
-        arbeiterFrame.setVisible(true);
+        auftragPanel.add(titelLabel);
+        auftragPanel.add(tfTitel);
+        auftragPanel.add(nameLabel);
+        auftragPanel.add(tfName);
+        auftragPanel.add(datenAuftraggeberLabel);
+        auftragPanel.add(datenAuftraggeberButton);
+        auftragPanel.add(datenAuftragsortLabel);
+        auftragPanel.add(datenAuftragsortButton);
+        auftragPanel.add(auftragSpeichernButton);
+        auftragPanel.setLayout( new java.awt.GridLayout( 10, 2 ) );
+        auftragFrame.add(auftragPanel);
+        auftragFrame.setVisible(true);
         
+        datenAuftraggeberButton.addActionListener(new java.awt.event.ActionListener() {
+            // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+               
+            }
+        });
+         
+        datenAuftragsortButton.addActionListener(new java.awt.event.ActionListener() {
+            // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                
+            }
+        });
+        
+        auftragSpeichernButton.addActionListener(new java.awt.event.ActionListener() {
+            
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+               auftragListe.add(new Auftrag());                    
+               int newIndex = auftragListe.size()-1;  
+               
+               content = tfTitel.getText();
+               if (content != null) {
+               auftragListe.get(newIndex).setTitel(content);                   
+               content = null;}        
+               
+                System.out.println(auftragListe.get(newIndex));
+        
+            }
+        });
        
    }
    
-   public void neueAdresseFrame () {
+   public void neueAdresseFrame (Angestellter angestellter) {
         JDialog adresseFrame = new JDialog();
         adresseFrame.setTitle("Daten Hinzufügen");
         
@@ -190,6 +308,24 @@ public class Frame {
         adresseFrame.add(adressePanel);
         adresseFrame.setVisible(true);
         
+        speichern.addActionListener(new java.awt.event.ActionListener() {
+           
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                  
+                Adresse neueAdresse = new Adresse();
+                neueAdresse.setLand(null);
+                neueAdresse.setStadt(tfStadt.getText());
+                neueAdresse.setStrasse(tfStrasse.getText());
+                neueAdresse.setHausnummer(Integer.parseInt(tfHausnummer.getText()));
+                neueAdresse.setTelefonnummer(tfTelefon.getText());
+                neueAdresse.setMailadresse(tfMail.getText());
+                angestellter.setAdresse(neueAdresse);
+                System.out.println("Adresse erstellt");
+                adresseFrame.setVisible(false);
+                
+            }
+        });
       
    }
-}
+
+} 
