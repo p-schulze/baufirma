@@ -72,7 +72,11 @@ public class main {
         Frame masterFrame = new Frame();
         masterFrame.frameErstellen();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         */
+=======
+        
+>>>>>>> Stashed changes
         statement = true;
         while (statement) {            
             startTextInterface();        
@@ -90,7 +94,7 @@ public class main {
     
     public static void startTextInterface() {
         prhr();
-        prln("Willkommen um Baufirma-Manager. Bitte wählen Sie, was Sie tun wollen!", ANSI_BLUE);
+        prln("Willkommen um Baufirma-Manager. Bitte wählen Sie, was Sie tun wollen!");
         prln("0 : Baufirma Manager beenden", ANSI_BLUE);
         prln("1 : Neuen Autrag erstellen", ANSI_BLUE);
         prln("2 : Auftrag anzeigen / verändern.", ANSI_BLUE);
@@ -190,9 +194,9 @@ public class main {
         
         printAuftrag(auftragListe.get(num-1));
                         
-        prln ("Möchten Sie den Auftrag verändern?", ANSI_BLUE);
-        prln ("0 : Nicht verändern");
-        prln ("1 : Auftrag entfernen");
+        prln ("Möchten Sie den Auftrag verändern?");
+        prln ("0 : Nicht verändern", ANSI_BLUE);
+        prln ("1 : Auftrag entfernen", ANSI_BLUE);
         
         int choice = s.nextInt();
         s.nextLine();
@@ -254,7 +258,7 @@ public class main {
     
     public static void addAngestellten () {       
         prhr();
-        prln("Welchen Typ hat der Angestellte?", ANSI_BLUE);
+        prln("Welchen Typ hat der Angestellte?");
         prln("1 : Projektleiter", ANSI_BLUE);
         prln("2 : Bauarbeiter", ANSI_BLUE);
         prln("3 : Architekt", ANSI_BLUE);
