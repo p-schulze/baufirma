@@ -14,18 +14,16 @@ public class Angestellter extends Object implements Serializable {
     String name;
     Adresse adresse;
     float gehalt;
-    Date bescheaftigtSeit;
-    boolean aktiv;
+    boolean aktiv;    
     
     public void Angestellter () {
         aktiv = false;
     }
     
-    public void Angestellter (String neuerName, String neueBezeichnung, Adresse neueAdresse, Date neuBescheaftigtSeit) {
+    public void Angestellter (String neuerName, Adresse neueAdresse, float Gehalt) {
         aktiv = false;
         name = neuerName;
         adresse = neueAdresse;
-        bescheaftigtSeit = neuBescheaftigtSeit;
     }
     
     public void setName (String neuerName) {
@@ -39,21 +37,17 @@ public class Angestellter extends Object implements Serializable {
         adresse = neueAdresse;
     }
     
+    public Adresse getAdresse() {
+        return adresse;
+    }
+    
     public void setGehalt (float neuesGehalt) {
         gehalt = neuesGehalt;
     }
     
     public float getGehalt () {
         return gehalt;
-    }
-    
-    public void setBescheaftigtSeit (Date neuBescheaftigtSeit) {
-        bescheaftigtSeit = neuBescheaftigtSeit;
-    }
-    
-    public Date getBescheaftigtSeit () {
-        return bescheaftigtSeit;
-    }
+    }    
     
     public void setAktiv (Boolean neuAktiv) {
         aktiv = neuAktiv;

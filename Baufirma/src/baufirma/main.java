@@ -19,6 +19,16 @@ public class main {
     /**
      * @param args the command line arguments
      */
+    
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLAC2K = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
 
     public static ArrayList<Auftrag> auftragListe;
     public static ArrayList<Projektleiter> projektleiterListe;
@@ -27,6 +37,7 @@ public class main {
     public static ArrayList<Bauarbeiter> bauarbeiterListe;
     public static Scanner s;                
     public static String content;
+    public static boolean statement;
     
     public static void main(String[] args) {                
         s = new Scanner (System.in);
@@ -61,19 +72,23 @@ public class main {
         Frame masterFrame = new Frame();
         masterFrame.frameErstellen();
         */
-        
-        startTextInterface();        
+        statement = true;
+        while (statement) {            
+            startTextInterface();        
+        }
     }
     
     public static void startTextInterface() {
-        prln("Willkommen um Baufirma-Manager. Bitte wählen Sie, was Sie tun wollen!");
-        prln("1 : Neuen Autrag erstellen");
-        prln("2 : Auftragsinformationen anzeigen");
-        prln("3 : Angestellten hinzufügen");
-        prln("4 : Angestellten anzeigen");
+        prhr();
+        prln("Willkommen um Baufirma-Manager. Bitte wählen Sie, was Sie tun wollen!", ANSI_BLUE);
+        prln("0 : Baufirma Manager beenden", ANSI_BLUE);
+        prln("1 : Neuen Autrag erstellen", ANSI_BLUE);
+        prln("2 : Auftrag anzeigen / verändern.", ANSI_BLUE);
+        prln("3 : Angestellten hinzufügen", ANSI_BLUE);
+        prln("4 : Angestellten anzeigen / verändern", ANSI_BLUE);
         int choice = s.nextInt();
         s.nextLine();
-        switch (choice) {
+        switch (choice) {            
             case 1:
                 addAuftrag();
                 break;
@@ -87,13 +102,13 @@ public class main {
                 showAngestellten();
                 break;                
             default:
-                    
+                statement = false;
                 break;
         }
     }
     
-    public static void addAuftrag () {
-        
+    public static void addAuftrag () {        
+        prhr();
         // Neuen Auftrag erstellen
         auftragListe.add(new Auftrag());                    
         int newIndex = auftragListe.size()-1;                    
@@ -148,37 +163,52 @@ public class main {
     }
     
     public static void showAuftrag() {
+        prhr();
         prln("Welcher Auftrag soll angezeigt werden?");
-        prln("Länge:" + auftragListe.size());
+        prln("0 : Baufirma Manager beenden", ANSI_BLUE);
         for (int i = 0; i < auftragListe.size(); i++) {
-               prln((i+1) + " : " + auftragListe.get(i).getTitel());
+               prln((i+1) + " : " + auftragListe.get(i).getTitel(), ANSI_BLUE);
         }
 
         int num = s.nextInt();   
         s.nextLine();        
         
+        if (num == 0) {
+            statement = false;
+            return;
+        }
+        
         printAuftrag(auftragListe.get(num-1));
+                        
+        prln ("Möchten Sie den Auftrag verändern?", ANSI_BLUE);
+        prln ("0 : Nicht verändern");
+        prln ("1 : Auftrag entfernen");
+        
+        int choice = s.nextInt();
+        s.nextLine();
+        switch (choice) {
+            case 0:
+                startTextInterface();
+                break;
+            case 1:
+                auftragListe.remove(num-1);
+                prln("Der Auftrag wurde entfernt.");
+                break;            
+            default:
+                    
+                break;
+        }
 
     }
     
     public static void printAuftrag (Auftrag toPrintAuftrag) {
+        prhr();
         if (toPrintAuftrag.getTitel() != null)
             prln("Auftrag : " + toPrintAuftrag.getTitel());
 
         if (toPrintAuftrag.getAdresse() != null) {
             prln("Auftrag Adressdaten:");
-
-            if (toPrintAuftrag.getAdresse().getLand() != null) {
-                prln("Land : " + toPrintAuftrag.getAdresse().getLand()); }
-        
-            if (toPrintAuftrag.getAdresse().getLand() != null) {
-                prln("Stadt : " + toPrintAuftrag.getAdresse().getStadt()); }
-
-            if (toPrintAuftrag.getAdresse().getStrasse() != null) {           
-                prln("Straße : " + toPrintAuftrag.getAdresse().getStrasse()); }
-        
-            if (toPrintAuftrag.getAdresse().getHausnummer() != 0) {           
-               prln("Hausnummer : " + toPrintAuftrag.getAdresse().getHausnummer()); }
+           printAdresse(toPrintAuftrag.getAdresse());
         }
                        
         if (toPrintAuftrag.getAuftraggeberName() != null) {
@@ -187,30 +217,41 @@ public class main {
         
         
         if (toPrintAuftrag.getAuftraggeberAdresse() != null) {
-            prln("Auftraggeber Adressdaten:");
-
-            if (toPrintAuftrag.getAuftraggeberAdresse().getLand() != null)
-                prln("Land : " + toPrintAuftrag.getAuftraggeberAdresse().getLand());
-        
-            if (toPrintAuftrag.getAuftraggeberAdresse().getLand() != null)
-                prln("Stadt : " + toPrintAuftrag.getAuftraggeberAdresse().getStadt());
-           
-            if (toPrintAuftrag.getAuftraggeberAdresse().getStrasse() != null)            
-                prln("Straße : " + toPrintAuftrag.getAuftraggeberAdresse().getStrasse());
-        
-            if (toPrintAuftrag.getAuftraggeberAdresse().getHausnummer() != 0)            
-               prln("Hausnummer : " + toPrintAuftrag.getAuftraggeberAdresse().getHausnummer());
+            prln("Auftraggeber Adressdaten: ");
+            printAdresse(toPrintAuftrag.getAuftraggeberAdresse());
         }
     }
     
+    public static void printAdresse (Adresse adresse) {
+         if (adresse.getLand() != null) {
+                prln("Land : " + adresse.getLand()); }
+        
+            if (adresse.getLand() != null) {
+                prln("Stadt : " + adresse.getStadt()); }
+
+            if (adresse.getStrasse() != null) {           
+                prln("Straße : " + adresse.getStrasse()); }
+        
+            if (adresse.getHausnummer() != 0) {           
+               prln("Hausnummer : " + adresse.getHausnummer()); }
+            
+            if (adresse.getMailadresse() != null) {           
+               prln("Mailadresse : " + adresse.getMailadresse()); }
+            
+            if (adresse.getTelefonnummer() != null) {           
+               prln("Telefonnummer : " + adresse.getTelefonnummer()); }
+    }
+    
     public static void addAngestellten () {       
-        prln("Welchen Typ hat der Angestellte?");
-        prln("1 : Projektleiter");
-        prln("2 : Bauarbeiter");
-        prln("3 : Architekt");
-        prln("4 : Statiker");
+        prhr();
+        prln("Welchen Typ hat der Angestellte?", ANSI_BLUE);
+        prln("1 : Projektleiter", ANSI_BLUE);
+        prln("2 : Bauarbeiter", ANSI_BLUE);
+        prln("3 : Architekt", ANSI_BLUE);
+        prln("4 : Statiker", ANSI_BLUE);
+        
         int choice = s.nextInt();
-        s.nextLine();
+        s.nextLine();                
         
         switch (choice) {
             case 1:
@@ -256,6 +297,7 @@ public class main {
     }
     
     public static void addAngestellterInformationen (Angestellter angestellter) {            
+        prhr();
         prln("Wie ist der Name des Angestellten?");
         angestellter.setName(s.nextLine());        
         
@@ -268,13 +310,21 @@ public class main {
     }
     
     public static void showAngestellten () {
-        prln("Welche Angestelltengruppe möchten sie sehen?");
-        prln("1 : Projektleiter");
-        prln("2 : Bauarbeiter");
-        prln("3 : Architekt");
-        prln("4 : Statiker");
+        prhr();
+        prln("Welche Angestelltengruppe möchten sie sehen?", ANSI_BLUE);
+        prln("0 : Baufirma Manager beenden", ANSI_BLUE);
+        prln("1 : Projektleiter", ANSI_BLUE);
+        prln("2 : Bauarbeiter", ANSI_BLUE);
+        prln("3 : Architekt", ANSI_BLUE);
+        prln("4 : Statiker", ANSI_BLUE);
+        
         int choice = s.nextInt();
         s.nextLine();
+        
+        if (choice == 0) {
+            statement = false;
+            return;
+        }
                 
         switch (choice) {
             case 1:
@@ -290,22 +340,65 @@ public class main {
                 printAngestellten(statikerListe);
                 break;    
             default:
-                    
+                
                 break;
         }
     }
     
     public static void printAngestellten (ArrayList<? extends Angestellter> liste) {
+        prhr();
+        prln("0 : Baufirma Manager beenden", ANSI_BLUE);
         for (int i = 0; i < liste.size(); i++) {
-               prln((i+1) + " : " + liste.get(i).getName());
+               prln((i+1) + " : " + liste.get(i).getName(), ANSI_BLUE);
         }
-    }
+                        
+        int num = s.nextInt();
+        s.nextLine();
         
+        if (num == 0) {
+            statement = false;
+            return;
+        }
+        
+        prhr();
+        
+        prln("Name : " + liste.get(num-1).getName());
+        prln("Adresse : ");
+        printAdresse(liste.get(num-1).getAdresse());
+        prln("Gehalt : " + liste.get(num-1).getGehalt());
+        
+        prln ("Möchten Sie den Angestellten verändern?", ANSI_BLUE);
+        prln ("0 : Nicht verändern", ANSI_BLUE);
+        prln ("1 : Angestellten entlassen", ANSI_BLUE);
+        
+        int choice = s.nextInt();
+        s.nextLine();
+        switch (choice) {
+            case 0:
+                
+                break;
+            case 1:
+                liste.remove(num-1);
+                prln("Der Angestellte wurde entlassen.");
+                break;            
+            default:
+                    
+                break;
+        }
+        
+        
+    }
+    
     public static void prln (String string) {
-        System.out.println(string);        
-    } 
-   
+        System.out.println(ANSI_RESET + string);        
+    }
     
+    public static void prln (String string, String color) {
+        System.out.println(color + string);        
+    }
     
+    public static void prhr () {
+        prln(ANSI_RESET + "*********************************************************************");
+    }         
 }
 

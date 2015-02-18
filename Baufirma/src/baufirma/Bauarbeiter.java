@@ -18,11 +18,10 @@ public class Bauarbeiter extends Angestellter  {
         aktiv = false;
     }
     
-    public void Bauarbeiter (String neuerName, String neueBezeichnung, Adresse neueAdresse, Date neuBescheaftigtSeit) {
+    public void Bauarbeiter (String neuerName, Adresse neueAdresse) {
         aktiv = false;
         name = neuerName;
         adresse = neueAdresse;
-        bescheaftigtSeit = neuBescheaftigtSeit;
     }    
     
     public void setBauarbeiterTyp (String neuerBauarbeiterTyp) {
