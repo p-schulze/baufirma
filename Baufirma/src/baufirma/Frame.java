@@ -22,6 +22,7 @@ public class Frame {
     public void frameErstellen () {
         JFrame backgroundFrame = new JFrame();
         backgroundFrame.setSize(400,43);
+        backgroundFrame.setLocation(0, 0);
         backgroundFrame.setResizable(false);
         JMenuBar menuBar = new JMenuBar();
         JMenu menu1 = new JMenu("Hinzufügen");
@@ -124,8 +125,7 @@ public class Frame {
                     arbeiterFrame.setVisible(false);
                 switch (index) {
                     case 0:
-                        System.out.println("\u001B[31m" + "Bauarbeiter");
-                        
+                                               
                         main.bauarbeiterListe.add(new Bauarbeiter());
                         main.bauarbeiterListe.get(main.bauarbeiterListe.size()-1).setGehalt(neuerAngestellterGehalt);
                         main.bauarbeiterListe.get(main.bauarbeiterListe.size()-1).setName(neuerAngestellterName);
@@ -153,8 +153,8 @@ public class Frame {
                         break;
                 }
                 }
-                else{System.out.println("\u001B[31m" + "Geben sie einen Name ein.");}
-            }
+                }
+            
         });
    }
   
@@ -320,7 +320,7 @@ public class Frame {
                 neueAdresse.setTelefonnummer(tfTelefon.getText());
                 neueAdresse.setMailadresse(tfMail.getText());
                 angestellter.setAdresse(neueAdresse);
-                System.out.println("\u001B[31m" + "Adresse erstellt");
+                
                 adresseFrame.setVisible(false);
                 
             }
