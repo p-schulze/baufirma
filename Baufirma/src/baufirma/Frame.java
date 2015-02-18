@@ -124,7 +124,7 @@ public class Frame {
                     arbeiterFrame.setVisible(false);
                 switch (index) {
                     case 0:
-                        System.out.println("Bauarbeiter");
+                        System.out.println("\u001B[31m" + "Bauarbeiter");
                         
                         main.bauarbeiterListe.add(new Bauarbeiter());
                         main.bauarbeiterListe.get(main.bauarbeiterListe.size()-1).setGehalt(neuerAngestellterGehalt);
@@ -153,7 +153,7 @@ public class Frame {
                         break;
                 }
                 }
-                else{System.out.println("Geben sie einen Name ein.");}
+                else{System.out.println("\u001B[31m" + "Geben sie einen Name ein.");}
             }
         });
    }
@@ -313,14 +313,14 @@ public class Frame {
             public void actionPerformed(java.awt.event.ActionEvent e) {
                   
                 Adresse neueAdresse = new Adresse();
-                neueAdresse.setLand(null);
+                neueAdresse.setLand(tfLand.getText());
                 neueAdresse.setStadt(tfStadt.getText());
                 neueAdresse.setStrasse(tfStrasse.getText());
                 neueAdresse.setHausnummer(Integer.parseInt(tfHausnummer.getText()));
                 neueAdresse.setTelefonnummer(tfTelefon.getText());
                 neueAdresse.setMailadresse(tfMail.getText());
                 angestellter.setAdresse(neueAdresse);
-                System.out.println("Adresse erstellt");
+                System.out.println("\u001B[31m" + "Adresse erstellt");
                 adresseFrame.setVisible(false);
                 
             }

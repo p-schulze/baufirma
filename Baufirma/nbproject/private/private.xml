@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< Updated upstream
             <file>file:/Users/Lehmann/Schule/Sek%20II/Informatik/Java/baufirma/Baufirma/src/baufirma/Statiker.java</file>
             <file>file:/Users/Lehmann/Schule/Sek%20II/Informatik/Java/baufirma/Baufirma/src/baufirma/Frame.java</file>
             <file>file:/Users/Lehmann/Schule/Sek%20II/Informatik/Java/baufirma/Baufirma/src/baufirma/ReadFromFile.java</file>
@@ -13,6 +14,10 @@
             <file>file:/Users/Lehmann/Schule/Sek%20II/Informatik/Java/baufirma/Baufirma/src/baufirma/Bauarbeiter.java</file>
             <file>file:/Users/Lehmann/Schule/Sek%20II/Informatik/Java/baufirma/Baufirma/src/baufirma/Auftrag.java</file>
             <file>file:/Users/Lehmann/Schule/Sek%20II/Informatik/Java/baufirma/Baufirma/src/baufirma/Angestellter.java</file>
+=======
+            <file>file:/Users/pascalschulze/2.%20Schule/Unterricht/12_Q2/INFO/baufirma/baufirma/Baufirma/src/baufirma/Frame.java</file>
+            <file>file:/Users/pascalschulze/2.%20Schule/Unterricht/12_Q2/INFO/baufirma/baufirma/Baufirma/src/baufirma/main.java</file>
+>>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>

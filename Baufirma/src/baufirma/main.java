@@ -68,14 +68,24 @@ public class main {
             }
         }, "Shutdown-thread"));
         
-        /*
+        
         Frame masterFrame = new Frame();
         masterFrame.frameErstellen();
+<<<<<<< Updated upstream
         */
         statement = true;
         while (statement) {            
             startTextInterface();        
         }
+=======
+
+        
+    //    startTextInterface();        
+
+        
+       // startTextInterface();        
+
+>>>>>>> Stashed changes
     }
     
     public static void startTextInterface() {

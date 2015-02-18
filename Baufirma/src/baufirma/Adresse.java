@@ -15,18 +15,18 @@ public class Adresse implements Serializable {
     String land, stadt, strasse, telefonnummer, mailadresse;
     int hausnummer;
 
-    public void Adresse () {
+   public void Adresse () {
         
     }
     
-    public void Adresse (String neuesLand, String neueStadt, int neuePlz, String neueStrasse, int neueHausnummer) {
+    public void Adresse (String neuesLand, String neueStadt, String neueStrasse, int neueHausnummer) {
         land = neuesLand;
         stadt = neueStadt;
         strasse = neueStrasse;
         hausnummer = neueHausnummer;
     }
     
-    public void Adresse (String neuesLand, String neueStadt, int neuePlz, String neueStrasse, int neueHausnummer, String neueTelefonnummer, String neueMailadresse) {
+    public void Adresse (String neuesLand, String neueStadt, String neueStrasse, int neueHausnummer, String neueTelefonnummer, String neueMailadresse) {
         land = neuesLand;
         stadt = neueStadt;
         strasse = neueStrasse;
