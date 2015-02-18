@@ -21,7 +21,7 @@ public class main {
      */
     
     public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLAC2K = "\u001B[30m";
+    public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_YELLOW = "\u001B[33m";
@@ -68,28 +68,15 @@ public class main {
             }
         }, "Shutdown-thread"));
         
-        
+        /*
         Frame masterFrame = new Frame();
         masterFrame.frameErstellen();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
         */
-=======
-        
->>>>>>> Stashed changes
         statement = true;
         while (statement) {            
             startTextInterface();        
         }
-=======
 
-        
-    //    startTextInterface();        
-
-        
-       // startTextInterface();        
-
->>>>>>> Stashed changes
     }
     
     public static void startTextInterface() {
@@ -126,7 +113,7 @@ public class main {
         // Neuen Auftrag erstellen
         auftragListe.add(new Auftrag());                    
         int newIndex = auftragListe.size()-1;                    
-        prln("Neuer Auftrag wurde erstellt.");
+        prln("Neuer Auftrag wurde erstellt.", ANSI_RED);
 
         prln("Welchen Titel soll der Auftrag haben?");                
         content = s.nextLine();
@@ -206,7 +193,7 @@ public class main {
                 break;
             case 1:
                 auftragListe.remove(num-1);
-                prln("Der Auftrag wurde entfernt.");
+                prln("Der Auftrag wurde entfernt.", ANSI_RED);
                 break;            
             default:
                     
@@ -393,7 +380,7 @@ public class main {
                 break;
             case 1:
                 liste.remove(num-1);
-                prln("Der Angestellte wurde entlassen.");
+                prln("Der Angestellte wurde entlassen.", ANSI_RED);
                 break;            
             default:
                     
@@ -408,7 +395,7 @@ public class main {
     }
     
     public static void prln (String string, String color) {
-        System.out.println(color + string);        
+        System.out.println(color + string + ANSI_RESET);        
     }
     
     public static void prhr () {
