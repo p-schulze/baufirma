@@ -21,7 +21,7 @@ public class main {
      */
     
     public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLAC2K = "\u001B[30m";
+    public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_YELLOW = "\u001B[33m";
@@ -69,22 +69,16 @@ public class main {
         }, "Shutdown-thread"));
         
         
+        /*
         Frame masterFrame = new Frame();
         masterFrame.frameErstellen();
-
+        */
+        
         statement = true;
         while (statement) {            
             startTextInterface();        
         }
-
-
-        
-    //    startTextInterface();        
-
-        
-       // startTextInterface();        
-
-    }
+    }   
     
     public static void startTextInterface() {
         prhr();
@@ -120,9 +114,10 @@ public class main {
         // Neuen Auftrag erstellen
         auftragListe.add(new Auftrag());                    
         int newIndex = auftragListe.size()-1;                    
-        prln("Neuer Auftrag wurde erstellt.");
+        prln("Neuer Auftrag wurde erstellt.", ANSI_RED);
 
         prln("Welchen Titel soll der Auftrag haben?");                
+        setColor(ANSI_GREEN);
         content = s.nextLine();
         if (content != null) {
             auftragListe.get(newIndex).setTitel(content);                   
@@ -130,6 +125,7 @@ public class main {
         }                                                    
 
         prln("Wie ist der Name des Auftraggebers?");
+        setColor(ANSI_GREEN);
         content = s.nextLine();        
         auftragListe.get(newIndex).setAuftraggeberName(content);
         content = null;        
@@ -141,6 +137,39 @@ public class main {
         auftragListe.get(newIndex).setAdresse(createNewAdresseByUserInput(false));            
     }
     
+    public static void editAuftrag (Auftrag auftrag) {
+        prhr();
+        prln("Welches Attribut soll bearbeitet werden?");
+        prln("0 : Baufirma Manager beenden", ANSI_BLUE);
+        prln("1 : Titel", ANSI_BLUE);
+        prln("2 : Aufraggebername", ANSI_BLUE);
+        prln("3 : Auftraggeberadresse", ANSI_BLUE);
+        prln("4 : Auftragsortadresse", ANSI_BLUE);
+        
+        int choice = s.nextInt();
+        s.nextLine();
+        switch (choice) {            
+            case 1:
+                setColor(ANSI_GREEN);
+                auftrag.setTitel(s.nextLine());
+                break;
+            case 2:
+                setColor(ANSI_GREEN);
+                auftrag.setAuftraggeberName(s.nextLine());
+                break;
+            case 3:
+                auftrag.setAuftraggeberAdresse(editAdresse(auftrag.getAuftraggeberAdresse(), true));                
+                break;
+            case 4:                
+                auftrag.setAdresse(editAdresse(auftrag.getAdresse(), false));                
+                break;                
+            default:
+                statement = false;
+                break;                            
+        }        
+        prln("Auftrag wurde aktualisiert.", ANSI_RED);    
+    }
+    
     public static Adresse createNewAdresseByUserInput (boolean metaData) {                        
         Adresse adresse = new Adresse();        
         prln("Möchten Sie die Adresse hinzufügen? ( 1 : Ja / 0: Nein )");
@@ -150,10 +179,13 @@ public class main {
         
         if (choice == 1) {
             prln("Land?");
+            setColor(ANSI_GREEN);
             adresse.setLand(s.nextLine());
             prln("Stadt?");
+            setColor(ANSI_GREEN);
             adresse.setStadt(s.nextLine());
             prln("Straße?");
+            setColor(ANSI_GREEN);
             adresse.setStrasse(s.nextLine());
             prln("Hausnummer?");
             adresse.setHausnummer(s.nextInt());        
@@ -161,13 +193,68 @@ public class main {
         
             if (metaData == true) {
                 prln("Mailadresse?");
+                setColor(ANSI_GREEN);
                 adresse.setMailadresse(s.nextLine());
                 prln("Telefonnummer?");
+                setColor(ANSI_GREEN);
                 adresse.setTelefonnummer(s.nextLine());        
             }
         }
         
         return adresse;
+    }
+    
+    public static Adresse editAdresse (Adresse adresse, boolean metaData) {
+        prhr();
+        prln("Welches Attribut der Adresse soll bearbeitet werden?");
+        prln("0 : Baufirma Manager beenden", ANSI_BLUE);
+        prln("1 : Land", ANSI_BLUE);
+        prln("2 : Stadt", ANSI_BLUE);
+        prln("3 : Straße", ANSI_BLUE);
+        prln("4 : Hausnummer", ANSI_BLUE);
+        if (metaData) {
+            prln("5 : Mailadresse", ANSI_BLUE);
+            prln("6 : Telefonnummer", ANSI_BLUE);
+        }           
+        
+        int choice = s.nextInt();
+        s.nextLine();
+        if (!metaData && (choice == 5 || choice == 6)) {
+            choice = 0;
+        }
+        
+        switch (choice) {            
+            case 1:
+                setColor(ANSI_GREEN);
+                adresse.setLand(s.nextLine());
+                break;
+            case 2:
+                setColor(ANSI_GREEN);
+                adresse.setStadt(s.nextLine());
+                break;
+            case 3:
+                setColor(ANSI_GREEN);
+                adresse.setStrasse(s.nextLine());
+                break; 
+            case 4:
+                setColor(ANSI_GREEN);
+                adresse.setHausnummer(s.nextInt());
+                s.nextLine();
+                break;                 
+            case 5:
+                setColor(ANSI_GREEN);
+                adresse.setMailadresse(s.nextLine());
+                break;               
+            case 6:
+                setColor(ANSI_GREEN);
+                adresse.setTelefonnummer(s.nextLine());
+                break;                               
+            default:
+                statement = false;
+                break;
+        }
+                        
+        return adresse;               
     }
     
     public static void showAuftrag() {
@@ -191,6 +278,7 @@ public class main {
         prln ("Möchten Sie den Auftrag verändern?");
         prln ("0 : Nicht verändern", ANSI_BLUE);
         prln ("1 : Auftrag entfernen", ANSI_BLUE);
+        prln ("2 : Auftrag bearbeiten", ANSI_BLUE);
         
         int choice = s.nextInt();
         s.nextLine();
@@ -200,8 +288,11 @@ public class main {
                 break;
             case 1:
                 auftragListe.remove(num-1);
-                prln("Der Auftrag wurde entfernt.");
+                prln("Der Auftrag wurde entfernt.", ANSI_RED);
                 break;            
+            case 2:
+                editAuftrag(auftragListe.get(num-1));                
+                break;     
             default:
                     
                 break;
@@ -278,7 +369,6 @@ public class main {
                     
                 break;
         }
-
     }
     
     public static void addProjektleiter() {
@@ -291,6 +381,7 @@ public class main {
         bauarbeiterListe.add(new Bauarbeiter());
         addAngestellterInformationen(bauarbeiterListe.get(bauarbeiterListe.size()-1));
         prln("Von welchem Typ ist der Bauarbeiter?");
+        setColor(ANSI_GREEN);
         bauarbeiterListe.get(bauarbeiterListe.size()-1).setBauarbeiterTyp(s.nextLine());
     }
     
@@ -307,6 +398,7 @@ public class main {
     public static void addAngestellterInformationen (Angestellter angestellter) {            
         prhr();
         prln("Wie ist der Name des Angestellten?");
+        setColor(ANSI_GREEN);
         angestellter.setName(s.nextLine());        
         
         prln("Wie ist die Adresse des Angestellten?");
@@ -314,6 +406,7 @@ public class main {
         
         prln("Wie ist das Gehalt des Angestellten?");
         angestellter.setGehalt(s.nextFloat());
+        setColor(ANSI_GREEN);
         s.nextLine();                
     }
     
@@ -378,23 +471,52 @@ public class main {
         prln ("Möchten Sie den Angestellten verändern?", ANSI_BLUE);
         prln ("0 : Nicht verändern", ANSI_BLUE);
         prln ("1 : Angestellten entlassen", ANSI_BLUE);
+        prln ("2 : Angestellten bearbeiten", ANSI_BLUE);
         
         int choice = s.nextInt();
         s.nextLine();
         switch (choice) {
-            case 0:
-                
-                break;
             case 1:
                 liste.remove(num-1);
-                prln("Der Angestellte wurde entlassen.");
+                prln("Der Angestellte wurde entlassen.", ANSI_RED);
                 break;            
+            case 2:
+                editAngestellten(liste.get(num-1));
+                break;                
             default:
-                    
+                
+                break;
+        }             
+    }
+    
+    public static void editAngestellten(Angestellter angestellter) {
+        prhr();
+        prln("Welches Attribut soll bearbeitet werden?");
+        prln("0 : Baufirma Manager beenden", ANSI_BLUE);
+        prln("1 : Name", ANSI_BLUE);
+        prln("2 : Gehalt", ANSI_BLUE);
+        prln("3 : Adresse", ANSI_BLUE);
+        
+        int choice = s.nextInt();
+        s.nextLine();
+        switch (choice) {            
+            case 1:
+                setColor(ANSI_GREEN);
+                angestellter.setName(s.nextLine());
+                break;
+            case 2:
+                setColor(ANSI_GREEN);
+                angestellter.setGehalt(s.nextInt());
+                s.nextLine();
+                break;
+            case 3:
+                angestellter.setAdresse(editAdresse(angestellter.getAdresse(), true));
+                break;              
+            default:
+                statement = false;
                 break;
         }
-        
-        
+        prln("Angestellter wurde aktualisiert.", ANSI_RED);    
     }
     
     public static void prln (String string) {
@@ -402,11 +524,15 @@ public class main {
     }
     
     public static void prln (String string, String color) {
-        System.out.println(color + string);        
+        System.out.println(color + string + ANSI_RESET);        
     }
     
     public static void prhr () {
         prln(ANSI_RESET + "*********************************************************************");
-    }         
+    }       
+    
+    public static void setColor (String color) {
+        System.out.print(color);
+    }
 }
 
