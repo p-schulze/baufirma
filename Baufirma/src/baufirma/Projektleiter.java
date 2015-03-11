@@ -11,7 +11,18 @@ package baufirma;
  * @author pascalschulze
  */
 public class Projektleiter extends Angestellter {
+    
+    public Boolean ersteHilfeAusbildung;
+    
     public void Projektleiter () { 
         
+    }
+    
+    public void setErsteHilfe (Boolean trueOderFalse){
+        ersteHilfeAusbildung = trueOderFalse;
+    }
+    
+    public Boolean getErsteHilfe (){
+        return ersteHilfeAusbildung;
     }
 }

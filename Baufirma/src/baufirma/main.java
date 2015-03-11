@@ -68,6 +68,7 @@ public class main {
             }
         }, "Shutdown-thread"));
         
+<<<<<<< Updated upstream
         prhr();
         prln("Möchten Sie das visuelle Interface starten? ( 1 : Ja / 0: Nein )");
         if (s.nextInt() == 1) {
@@ -76,11 +77,33 @@ public class main {
         }
         s.nextLine();
         
+=======
+       
+        Frame masterFrame = new Frame();
+        masterFrame.frameErstellen();
+
+        
+
+>>>>>>> Stashed changes
         statement = true;
         while (statement) {            
             startTextInterface();        
         }
+<<<<<<< Updated upstream
     }   
+=======
+
+
+
+        
+    //    startTextInterface();        
+
+        
+       // startTextInterface();        
+
+
+    }
+>>>>>>> Stashed changes
     
     public static void startTextInterface() {
         prhr();

@@ -16,6 +16,7 @@ public class Angestellter extends Object implements Serializable {
     float gehalt;
     boolean aktiv;    
     
+    
     public void Angestellter () {
         aktiv = false;
     }
@@ -64,5 +65,7 @@ public class Angestellter extends Object implements Serializable {
     public boolean getAktiv () {
         return aktiv;
     }
+   
+   
     
 }

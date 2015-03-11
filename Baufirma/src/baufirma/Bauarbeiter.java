@@ -5,8 +5,6 @@
  */
 package baufirma;
 
-import java.util.Date;
-
 /**
  *
  * @author pascalschulze
