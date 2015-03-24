@@ -24,12 +24,12 @@ public class Auftrag extends Object implements Serializable {
     //Aufgabeliste: Bonusfeature
     ArrayList<String[]> aufgabenListe;
   
-    public void Auftrag () { 
+    public Auftrag () { 
         bauarbeiterListe = new ArrayList<>();
         materialListe = new ArrayList<>();
     }
     
-    public void Auftrag (String neuerTitel, Projektleiter neuerProjektleiter) {
+    public Auftrag (String neuerTitel, Projektleiter neuerProjektleiter) {
         titel = neuerTitel;
         projektleiter = neuerProjektleiter;
         
@@ -111,6 +111,14 @@ public class Auftrag extends Object implements Serializable {
     
     public void addBauarbeiterToListe (Bauarbeiter neuerBauarbeiter) {
         bauarbeiterListe.add(neuerBauarbeiter);
+    }
+    
+    public void removeBauarbeiterFromListe (int index) {
+        bauarbeiterListe.remove(index);
+    }
+    
+    public Bauarbeiter getBauarbeiterFromListe (int index) {
+        return bauarbeiterListe.get(index);
     }
     
     public void addMaterialToListe (Material neuesMaterial) {
