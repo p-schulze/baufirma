@@ -68,30 +68,46 @@ public class main {
             }
         }, "Shutdown-thread"));
         
-<<<<<<< Updated upstream
+
         prhr();
-        prln("Möchten Sie das visuelle Interface starten? ( 1 : Ja / 0: Nein )");
-        if (s.nextInt() == 1) {
+       // prln("Möchten Sie das visuelle Interface starten? ( 1 : Ja / 0: Nein )");
+       // if (s.nextInt() == 1) {
+             System.setProperty( "com.apple.mrj.application.apple.menu.about.name", "Ted" );
+             System.setProperty( "com.apple.macos.useScreenMenuBar", "true" );
+             System.setProperty( "apple.laf.useScreenMenuBar", "true" );
             Frame masterFrame = new Frame();
-            masterFrame.frameErstellen();
-        }
+            masterFrame.startMenu();
+            System.out.println("Listen leeren?");
+            if (s.nextInt() == 1) {
+                bauarbeiterListe = null;
+                architektListe = null;
+                statikerListe = null;
+                projektleiterListe = null;
+                
+                if(bauarbeiterListe == null &&
+                architektListe == null &&
+                statikerListe == null &&
+                projektleiterListe == null){
+                    System.out.println("Alle Listen sind leer.");
+                }
+            
+            }
+        //}
         s.nextLine();
         
-=======
-       
-        Frame masterFrame = new Frame();
-        masterFrame.frameErstellen();
+
+     
 
         
 
->>>>>>> Stashed changes
+
         statement = true;
         while (statement) {            
             startTextInterface();        
         }
-<<<<<<< Updated upstream
+
     }   
-=======
+
 
 
 
@@ -102,8 +118,8 @@ public class main {
        // startTextInterface();        
 
 
-    }
->>>>>>> Stashed changes
+    
+
     
     public static void startTextInterface() {
         prhr();

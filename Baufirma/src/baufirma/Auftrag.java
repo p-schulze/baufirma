@@ -17,19 +17,20 @@ public class Auftrag extends Object implements Serializable {
     Projektleiter projektleiter;
     Architekt architekt;
     Statiker statiker;
-    ArrayList<Bauarbeiter> bauarbeiterListe;    
+    public ArrayList<Bauarbeiter> bauarbeiterListe;    
     String auftraggeberName;
     Adresse auftraggeberAdresse; 
     ArrayList<Material> materialListe;
     //Aufgabeliste: Bonusfeature
     ArrayList<String[]> aufgabenListe;
   
-    public void Auftrag () { 
-        bauarbeiterListe = new ArrayList<>();
+    public Auftrag () { 
+        super();
+        this.setBauarbeiterListe(new ArrayList<Bauarbeiter>());        
         materialListe = new ArrayList<>();
     }
     
-    public void Auftrag (String neuerTitel, Projektleiter neuerProjektleiter) {
+    public Auftrag (String neuerTitel, Projektleiter neuerProjektleiter) {
         titel = neuerTitel;
         projektleiter = neuerProjektleiter;
         
@@ -109,7 +110,7 @@ public class Auftrag extends Object implements Serializable {
         return materialListe;
     }
     
-    public void addBauarbeiterToListe (Bauarbeiter neuerBauarbeiter) {
+    public void addBauarbeiterToListe (Bauarbeiter neuerBauarbeiter) {        
         bauarbeiterListe.add(neuerBauarbeiter);
     }
     

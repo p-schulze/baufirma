@@ -4,118 +4,75 @@ package baufirma;
 import java.awt.BorderLayout;
 import javax.swing.*;
 import java.util.ArrayList;
-
 /**
  *
  * @author pascalschulze
  */
 public class Frame {
-    
-   public void Frame () {}
-    
+
    //Menu ---------------------------------------------------------------------------------------------------------------------  
-   public void frameErstellen () {
-        JFrame backgroundFrame = new JFrame();
-        backgroundFrame.setSize(400,43);
-        backgroundFrame.setLocation(0, 0);
-        backgroundFrame.setResizable(false);
+   public void startMenu () {
+        JDialog backgroundFrame = giveFrame("Baufirma", 280, 43, 0, 0, givePanel(1,1));    
         JMenuBar menuBar = new JMenuBar();
+
         JMenu menu1 = new JMenu("Hinzufügen");
-        JMenuItem angestellter1 = new JMenuItem("Angestellter");
-        JMenuItem auftrag1 = new JMenuItem("Auftrag");
+        JMenuItem angestellter1 = setMenuSub(menu1, "Angestellter");
+        JMenuItem auftrag1 = setMenuSub(menu1, "Auftrag");
         
         JMenu menu2 = new JMenu("Bearbeiten");
-        JMenuItem angestellter2 = new JMenuItem("Angestellter");
-        JMenuItem auftrag2 = new JMenuItem("Auftrag");
+        JMenuItem angestellter2 = setMenuSub(menu2, "Angestellter");
+        JMenuItem auftrag2 = setMenuSub(menu2, "Auftrag");
         
         JMenu menu3 = new JMenu("Übersicht");
-        JMenuItem angestellter3 = new JMenuItem("Angestellter");
-        JMenuItem auftrag3 = new JMenuItem("Auftrag");
-        
-        JMenu menu4 = new JMenu("Verschieben");
-        
-  
-        menu1.add(angestellter1);
-        menu1.add(auftrag1);
-        menu2.add(angestellter2);
-        menu2.add(auftrag2);
-        menu3.add(angestellter3);
-        menu3.add(auftrag3);
+        JMenuItem angestellter3 = setMenuSub(menu3, "Angestellter");
+        JMenuItem auftrag3 = setMenuSub(menu3, "Auftrag");
+     
         menuBar.add(menu1);
         menuBar.add(menu2);
         menuBar.add(menu3);
-        menuBar.add(menu4);
         backgroundFrame.add(menuBar, BorderLayout.NORTH);
         
         backgroundFrame.setVisible(true);
         
         angestellter1.addActionListener((java.awt.event.ActionEvent e) -> {
             neuerArbeiterFrame();
-        } 
-        );
+        });
         
         auftrag1.addActionListener((java.awt.event.ActionEvent e) -> {
             neuerAuftragFrame();
-        } 
-        );
+        });
         
         angestellter2.addActionListener((java.awt.event.ActionEvent e) -> {
             uebersichtAngestellteFrame();
         });
         
         auftrag2.addActionListener((java.awt.event.ActionEvent e) -> {
-           
-        } 
-        );
+           uebersichtAuftragFrame(1);
+        });
         
         angestellter3.addActionListener((java.awt.event.ActionEvent e) -> {
             uebersichtAngestellteFrame();
         });
         
         auftrag3.addActionListener((java.awt.event.ActionEvent e) -> {
-            uebersichtAuftragFrame();
-        } 
-        );
-        
-        menu4.addActionListener((java.awt.event.ActionEvent e) -> {
-            uebersichtAuftragFrame();
-        } 
-        );
-        
-       
+            uebersichtAuftragFrame(0);
+        });  
    } //Fertig - Menüs müssen noch zugeordnet werden
   
    //Hinzufügen ---------------------------------------------------------------------------------------------------------------  
-   public void neuerArbeiterFrame () {
-        JDialog arbeiterFrame = new JDialog();
-        arbeiterFrame.setSize(250,300);
-        arbeiterFrame.setLocation(450, 0);
-        JPanel arbeiterPanel = new JPanel();
-        
-        JLabel frage = new JLabel("Was für ein Arbeiter?", JLabel.CENTER);
-        arbeiterPanel.add(frage);
+   private void neuerArbeiterFrame () {
+        JPanel arbeiterPanel = givePanel(7,2);
+        newLabelM("Was für ein Arbeiter?", arbeiterPanel);
         String arbeiter[] = {"Bauarbeiter", "Statiker", "Architekt", "Projektleiter"};
- 
         JComboBox arbeiterAuswahl = new JComboBox(arbeiter);
-        
-        JLabel nameLabel = new JLabel("Name", JLabel.CENTER);
-        JLabel gehaltLabel = new JLabel("Gehalt in € (Form: xxx.xx)", JLabel.CENTER);
-        JTextField tfName = new JTextField("", JTextField.CENTER);
-        JTextField tfGehalt = new JTextField("", JTextField.CENTER);
-        JButton erstellenButton = new JButton("Weiter");
-        
-     
-        
         arbeiterPanel.add(arbeiterAuswahl);
-        
-        arbeiterPanel.add(nameLabel);
-        arbeiterPanel.add(tfName);
-        arbeiterPanel.add(gehaltLabel);
-        arbeiterPanel.add(tfGehalt);
-        arbeiterPanel.add(erstellenButton);
-        arbeiterPanel.setLayout( new java.awt.GridLayout( 7, 2 ) );
-        arbeiterFrame.add(arbeiterPanel);
-        arbeiterFrame.setVisible(true);
+        newLabelM("Name", arbeiterPanel);
+        JTextField tfName = newTF("", arbeiterPanel);
+        newLabelM("Gehalt in € (Form: xxx.xx)", arbeiterPanel);
+        JTextField tfGehalt = newTF("", arbeiterPanel);
+        JButton erstellenButton = newButton("Weiter", arbeiterPanel);
+
+        JDialog arbeiterFrame = giveFrame("Neuer Arbeiter", 250, 230, 280, 0, arbeiterPanel);
         
         erstellenButton.addActionListener((java.awt.event.ActionEvent e) -> {
             int index = arbeiterAuswahl.getSelectedIndex();
@@ -136,40 +93,34 @@ public class Frame {
                 fehlerFrame();
             }
         });
-   } //Fertig
+   } // !!! Fertig und gekürzt !!!
    
-        public void neuerArbeiterDetailFrame (int auswahl, String neuerName, float neuesGehalt) {
-        JDialog neuerArbeiterDetailFrame = new JDialog();
-        neuerArbeiterDetailFrame.setLocation(450, 0);
-        JPanel neuerArbeiterDetailPanel = new JPanel();
-        neuerArbeiterDetailPanel.setLayout( new java.awt.GridLayout( 3, 2 ) );
-        neuerArbeiterDetailFrame.setSize(200,100);
+        private void neuerArbeiterDetailFrame (int auswahl, String neuerName, float neuesGehalt) {
+
+        JPanel neuerArbeiterDetailPanel = givePanel(3,2);
+        JDialog neuerArbeiterDetailFrame = giveFrame("Angestellter Detail", 200, 100, 280, 0, neuerArbeiterDetailPanel);
+        
         switch (auswahl){
             case 0:
-               
-                JLabel typ = new JLabel("Bauarbeitertyp", JLabel.CENTER);
-                JTextField tfTyp = new JTextField("", JTextField.CENTER);
-                JButton weiter1 = new JButton("Weiter");
-                
-                
-                
-                neuerArbeiterDetailPanel.add(typ);
-                neuerArbeiterDetailPanel.add(tfTyp);
-                neuerArbeiterDetailPanel.add(weiter1);
-                neuerArbeiterDetailFrame.add(neuerArbeiterDetailPanel);
+                newLabelM("Bauarbeitertyp", neuerArbeiterDetailPanel);
+                JTextField tfTyp = newTF("", neuerArbeiterDetailPanel);             
+                JButton weiter1 = newButton("Weiter", neuerArbeiterDetailPanel);
                 neuerArbeiterDetailFrame.setVisible(true);
                 weiter1.addActionListener((java.awt.event.ActionEvent e) -> {
                     main.bauarbeiterListe.add(new Bauarbeiter());
                     main.bauarbeiterListe.get(main.bauarbeiterListe.size()-1).setGehalt(neuesGehalt);
                     main.bauarbeiterListe.get(main.bauarbeiterListe.size()-1).setName(neuerName);
                     main.bauarbeiterListe.get(main.bauarbeiterListe.size()-1).setBauarbeiterTyp(tfTyp.getText());
+                    neuerArbeiterDetailFrame.setVisible(false);
                     neueAdresseAngestellterFrame(main.bauarbeiterListe.get(main.bauarbeiterListe.size()-1), "Adresse Bauarbeiter");
+                    
                 });
                 break;
             case 1:
                main.statikerListe.add(new Statiker());
                main.statikerListe.get(main.statikerListe.size()-1).setGehalt(neuesGehalt);
                main.statikerListe.get(main.statikerListe.size()-1).setName(neuerName);
+               neuerArbeiterDetailFrame.setVisible(false);
                neueAdresseAngestellterFrame(main.statikerListe.get(main.statikerListe.size()-1), "Adresse Statiker");
                break;
             case 2:
@@ -177,18 +128,15 @@ public class Frame {
                 main.architektListe.get(main.architektListe.size()-1).setGehalt(neuesGehalt);
                 main.architektListe.get(main.architektListe.size()-1).setName(neuerName);
                 neueAdresseAngestellterFrame(main.architektListe.get(main.architektListe.size()-1), "Adresse Architekt");
+                neuerArbeiterDetailFrame.setVisible(false);
                 break;
                 
             case 3:
             
-                JLabel ersteHilfe = new JLabel("Erstehilfeausbildung (Ja / Nein)", JLabel.CENTER);
-                JTextField jaOderNein = new JTextField("");
-                JButton weiter2 = new JButton("Weiter");
-                
-                neuerArbeiterDetailPanel.add(ersteHilfe);
-                neuerArbeiterDetailPanel.add(jaOderNein);
-                neuerArbeiterDetailPanel.add(weiter2);
-                neuerArbeiterDetailFrame.add(neuerArbeiterDetailPanel);
+                newLabelM("Erstehilfeausbildung (Ja / Nein)", neuerArbeiterDetailPanel);
+                JTextField jaOderNein = newTF("", neuerArbeiterDetailPanel);
+                JButton weiter2 = newButton("Weiter", neuerArbeiterDetailPanel);
+               
                 neuerArbeiterDetailFrame.setVisible(true);
                 weiter2.addActionListener((java.awt.event.ActionEvent e) -> {
                     Boolean ersteHilfeAusbildung = false;
@@ -204,6 +152,7 @@ public class Frame {
                     main.projektleiterListe.get(main.projektleiterListe.size()-1).setGehalt(neuesGehalt);
                     main.projektleiterListe.get(main.projektleiterListe.size()-1).setName(neuerName);
                     main.projektleiterListe.get(main.projektleiterListe.size()-1).setErsteHilfe(ersteHilfeAusbildung);
+                    neuerArbeiterDetailFrame.setVisible(false);
                     neueAdresseAngestellterFrame(main.projektleiterListe.get(main.projektleiterListe.size()-1), "Adresse Bauarbeiter");
                 });
                 break;
@@ -212,139 +161,80 @@ public class Frame {
        
      
         
-   } //Fertig
+   } // !!! Fertig und gekürzt !!!
         
-        public void neueAdresseAngestellterFrame (Angestellter angestellter, String titelDesFrames) {
-        JDialog adresseFrame = new JDialog();
-        adresseFrame.setTitle(titelDesFrames);
+        private void neueAdresseAngestellterFrame (Angestellter angestellter, String titelDesFrames) {
+        JPanel adressePanel = givePanel(7, 2);     
+        JDialog adresseFrame = giveFrame(titelDesFrames, 250, 230, 280, 0, adressePanel);
         
-        adresseFrame.setSize(250,230);
-        adresseFrame.setLocation(750, 0);
-        adresseFrame.setResizable(false);
-        JPanel adressePanel = new JPanel();
-       
-        JLabel landLabel = new JLabel("   Land");
-        JLabel stadtLabel = new JLabel("   Stadt");
-        JLabel strasseLabel = new JLabel("   Straße");
-        JLabel hausnummerLabel = new JLabel("   Hausnummer");
-        JLabel mailLabel = new JLabel("   Mailadresse");
-        JLabel telefonLabel = new JLabel("   Telefon");
-        JLabel zwischenraum = new JLabel("");
-        JButton speichern = new JButton("Speichern");
-        speichern.setVerticalAlignment(SwingConstants.CENTER);
-        
-        JTextField tfLand = new JTextField("", JTextField.CENTER);
-        JTextField tfStadt = new JTextField("", JTextField.CENTER);
-        JTextField tfStrasse = new JTextField("", JTextField.CENTER);
-        JTextField tfHausnummer = new JTextField("", JTextField.CENTER);
-        JTextField tfMail = new JTextField("", JTextField.CENTER);
-        JTextField tfTelefon = new JTextField("", JTextField.CENTER);
-        
-        adressePanel.add(landLabel);
-        adressePanel.add(tfLand);
-        adressePanel.add(stadtLabel);
-        adressePanel.add(tfStadt);
-        adressePanel.add(strasseLabel);
-        adressePanel.add(tfStrasse);
-        adressePanel.add(hausnummerLabel);
-        adressePanel.add(tfHausnummer);
-        adressePanel.add(mailLabel);
-        adressePanel.add(tfMail);
-        adressePanel.add(telefonLabel);
-        adressePanel.add(tfTelefon);
-        adressePanel.add(zwischenraum);
-        adressePanel.add(speichern);
-        adressePanel.setLayout( new java.awt.GridLayout( 8, 2 ) );
-        adresseFrame.add(adressePanel);
-        adresseFrame.setVisible(true);
-        
-        speichern.addActionListener(new java.awt.event.ActionListener() {
-           
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                  
-                Adresse neueAdresse = new Adresse();
-                
-                if(tfLand.getText().length() != 0){
-                    neueAdresse.setLand(tfLand.getText());}
-                else {
-                    neueAdresse.setLand("Land fehlt");
-                }
-                
-                if(tfStadt.getText().length() != 0){
-                    neueAdresse.setStadt(tfStadt.getText());}
-                else {
-                    neueAdresse.setStadt("Stadt fehlt");
-                }
-                
-                if(tfStrasse.getText().length() != 0){
-                    neueAdresse.setStrasse(tfStrasse.getText());}
-                else {
-                    neueAdresse.setStrasse("Strasse fehlt");
-                }
-                
-                if(tfHausnummer.getText().length() != 0){
-                    neueAdresse.setHausnummer(Integer.parseInt(tfHausnummer.getText()));}
-                else {
-                    neueAdresse.setHausnummer(0);
-                }
-                
-                if(tfTelefon.getText().length() != 0){
-                    neueAdresse.setTelefonnummer(tfTelefon.getText());}
-                else {
-                    neueAdresse.setTelefonnummer("Telefonnummer fehlt");
-                }
-                
-                if(tfMail.getText().length() != 0){
-                    neueAdresse.setMailadresse(tfMail.getText());}
-                else {
-                    neueAdresse.setMailadresse("Mailadresse fehlt");
-                }
+        Adresse neueAdresse = new Adresse();
+        neueAdresse.setLand("Land fehlt");
+        neueAdresse.setStadt("Stadt fehlt");
+        neueAdresse.setStrasse("Straße fehlt");
+        neueAdresse.setHausnummer(0);
+        neueAdresse.setTelefonnummer("T-Nummer fehlt");
+        neueAdresse.setMailadresse("Mailadresse fehlt");
+        angestellter.setAdresse(neueAdresse);
 
-                angestellter.setAdresse(neueAdresse);
-                adresseFrame.setVisible(false);
-                
-            }
+        newLabel("   Land", adressePanel);
+        JTextField tfLand = newTF("", adressePanel);
+        newLabel("   Stadt", adressePanel);
+        JTextField tfStadt = newTF("", adressePanel);
+        newLabel("   Straße", adressePanel);
+        JTextField tfStrasse = newTF("", adressePanel);
+        newLabel("   Hausnummer", adressePanel);
+        JTextField tfHausnummer = newTF("", adressePanel);
+        newLabel("   Mailadresse", adressePanel);
+        JTextField tfMail = newTF("", adressePanel);
+        newLabel("   Telefon", adressePanel);
+        JTextField tfTelefon = newTF("", adressePanel);
+        newLabel("", adressePanel);
+        JButton speichern = newButton("Speichern", adressePanel);
+       
+        speichern.addActionListener((java.awt.event.ActionEvent e) -> {
+           
+            if(tfLand.getText().length() != 0){
+                angestellter.getAdresse().setLand(tfLand.getText());}
+              
+            if(tfStadt.getText().length() != 0){
+                angestellter.getAdresse().setStadt(tfStadt.getText());}
+           
+            if(tfStrasse.getText().length() != 0){
+                angestellter.getAdresse().setStrasse(tfStrasse.getText());}
+           
+            if(tfHausnummer.getText().length() != 0){
+                angestellter.getAdresse().setHausnummer(Integer.parseInt(tfHausnummer.getText()));}
+           
+            if(tfTelefon.getText().length() != 0){
+                angestellter.getAdresse().setTelefonnummer(tfTelefon.getText());}
+            
+            if(tfMail.getText().length() != 0){
+                angestellter.getAdresse().setMailadresse(tfMail.getText());}
+            
+            adresseFrame.setVisible(false);
         });
       
-   } //Fertig
+   } // !!! Fertig und gekürzt !!!
    
-   public void neuerAuftragFrame () {
-        JDialog auftragFrame = new JDialog();
-        auftragFrame.setSize(250,200);
-        auftragFrame.setLocation(450, 0);
-        auftragFrame.setResizable(false);
-        JPanel auftragPanel = new JPanel();
-       
-        JLabel titelLabel = new JLabel("Welchen Titel soll der Auftrag haben?", JLabel.CENTER);
-        JLabel nameLabel = new JLabel("Wie ist der Name des Auftraggebers?", JLabel.CENTER);
-        JTextField tfTitel = new JTextField("", JTextField.CENTER);
-        JTextField tfName = new JTextField("", JTextField.CENTER);
-        JButton auftragSpeichernButton = new JButton("Speichern");
-        
-        auftragPanel.add(titelLabel);
-        auftragPanel.add(tfTitel);
-        auftragPanel.add(nameLabel);
-        auftragPanel.add(tfName);
-        auftragPanel.add(auftragSpeichernButton);
-        auftragPanel.setLayout( new java.awt.GridLayout( 5, 1 ) );
-        auftragFrame.add(auftragPanel);
-        auftragFrame.setVisible(true);
-        
-      
+   private void neuerAuftragFrame () {
+        JPanel auftragPanel = givePanel(5,2);
+        JDialog auftragFrame = giveFrame("Neuer Auftrag", 250, 200, 530, 0, auftragPanel);
+
+        newLabelM("Welchen Titel soll der Auftrag haben?", auftragPanel);
+        JTextField tfTitel = newTF("", auftragPanel);
+        newLabelM("Wie ist der Name des Auftraggebers?", auftragPanel);
+        JTextField tfName = newTF("", auftragPanel);
+        JButton auftragSpeichernButton = newButton("Speichern", auftragPanel);   
         
         auftragSpeichernButton.addActionListener((java.awt.event.ActionEvent e) -> {
             main.auftragListe.add(new Auftrag());
             int newIndex = main.auftragListe.size()-1;
-            
-            
+
             if (tfTitel.getText() != null && tfName.getText() != null) {
                 main.auftragListe.get(newIndex).setTitel(tfTitel.getText());
                 main.auftragListe.get(newIndex).setAuftraggeberName(tfName.getText());
-                
-                
+
                 neueAdresseAuftragFrame(main.auftragListe.get(newIndex));
-                
-                
                 auftragFrame.setVisible(false);
             }
             else {
@@ -352,295 +242,140 @@ public class Frame {
             }
         });
        
-   }
+   } // !!! Fertig und gekürzt !!!
         
-        public void neueAdresseAuftragFrame (Auftrag auftrag) {
-        JDialog adresseFrame = new JDialog();        
-        adresseFrame.setSize(300,250);
-        adresseFrame.setLocation(750, 0);
-        adresseFrame.setResizable(false);
-        adresseFrame.setTitle("Adresse Auftrag");
-        JPanel adressePanel = new JPanel();
-        JLabel adresseKundeLabel = new JLabel("Kunde");
-        JLabel adresseOrtLabel = new JLabel("Bauort");
-        JLabel landLabel = new JLabel("   Land");
-        JLabel stadtLabel = new JLabel("   Stadt");
-        JLabel strasseLabel = new JLabel("   Straße");
-        JLabel hausnummerLabel = new JLabel("   Hausnummer");
-        JLabel mailLabel = new JLabel("   Mailadresse");
-        JLabel telefonLabel = new JLabel("   Telefon");
-        JLabel zwischenraum = new JLabel("");
-        JLabel zwischenraum2 = new JLabel("");
-        JButton speichern = new JButton("Speichern");
-        speichern.setVerticalAlignment(SwingConstants.CENTER);
-        
-        JTextField tfLandKunde = new JTextField("", JTextField.CENTER);
-        JTextField tfStadtKunde = new JTextField("", JTextField.CENTER);
-        JTextField tfStrasseKunde = new JTextField("", JTextField.CENTER);
-        JTextField tfHausnummerKunde = new JTextField("", JTextField.CENTER);
-        JTextField tfMailKunde = new JTextField("", JTextField.CENTER);
-        JTextField tfTelefonKunde = new JTextField("", JTextField.CENTER);
-        
-        JTextField tfLandOrt = new JTextField("", JTextField.CENTER);
-        JTextField tfStadtOrt = new JTextField("", JTextField.CENTER);
-        JTextField tfStrasseOrt = new JTextField("", JTextField.CENTER);
-        JTextField tfHausnummerOrt = new JTextField("", JTextField.CENTER);
-       
-        adressePanel.add(zwischenraum2);
-        adressePanel.add(adresseKundeLabel);
-        adressePanel.add(adresseOrtLabel);
-                
-        adressePanel.add(landLabel);
-        adressePanel.add(tfLandKunde);
-        adressePanel.add(tfLandOrt);
-        
-        adressePanel.add(stadtLabel);
-        adressePanel.add(tfStadtKunde);
-        adressePanel.add(tfStadtOrt);
-        
-        adressePanel.add(strasseLabel);
-        adressePanel.add(tfStrasseKunde);
-        adressePanel.add(tfStrasseOrt);
-        
-        adressePanel.add(hausnummerLabel);
-        adressePanel.add(tfHausnummerKunde);
-        adressePanel.add(tfHausnummerOrt);
-       
-        adressePanel.add(mailLabel);
-        adressePanel.add(tfMailKunde);
-        adressePanel.add(zwischenraum);
-        
-        adressePanel.add(telefonLabel);
-        adressePanel.add(tfTelefonKunde);
-        adressePanel.add(speichern);
-        adressePanel.setLayout( new java.awt.GridLayout( 7, 3 ) );
-        adresseFrame.add(adressePanel);
-        adresseFrame.setVisible(true);
-        
-        speichern.addActionListener(new java.awt.event.ActionListener() {
-           
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                  
-                Adresse neueAdresseKunde = new Adresse();
-                Adresse neueAdresseOrt = new Adresse();
-               
-                if(tfLandKunde.getText().length() != 0){
-                    neueAdresseKunde.setLand(tfLandKunde.getText());}
-                else {
-                    neueAdresseKunde.setLand("Land fehlt");
-                }
-                
-                if(tfStadtKunde.getText().length() != 0){
-                    neueAdresseKunde.setStadt(tfStadtKunde.getText());}
-                else {
-                    neueAdresseKunde.setStadt("Stadt fehlt");
-                }
-                
-                if(tfStrasseKunde.getText().length() != 0){
-                    neueAdresseKunde.setStrasse(tfStrasseKunde.getText());}
-                else {
-                    neueAdresseKunde.setStrasse("Stadt fehlt");
-                }
-                
-                if(tfHausnummerKunde.getText().length() != 0){
-                    neueAdresseKunde.setHausnummer(Integer.parseInt(tfHausnummerKunde.getText()));}
-                else {
-                    neueAdresseKunde.setHausnummer(0);
-                }
-                
-                if(tfTelefonKunde.getText().length() != 0){
-                    neueAdresseKunde.setTelefonnummer(tfTelefonKunde.getText());}
-                else {
-                    neueAdresseKunde.setTelefonnummer("Telefonnummer fehlt");
-                }
-                
-                if(tfMailKunde.getText().length() != 0){
-                    neueAdresseKunde.setMailadresse(tfMailKunde.getText());}
-                else {
-                    neueAdresseKunde.setMailadresse("Mailadresse fehlt");
-                }
+        private void neueAdresseAuftragFrame (Auftrag auftrag) {
+        JPanel adressePanel = givePanel(7,3);
+        JDialog adresseFrame = giveFrame("Neuer Auftrag - Adresse", 300, 250, 530, 0, adressePanel);   
 
-                auftrag.setAuftraggeberAdresse(neueAdresseKunde);
-                
-                
-                
-                if(tfLandOrt.getText().length() != 0){
-                    neueAdresseOrt.setLand(tfLandOrt.getText());}
-                else {
-                    neueAdresseOrt.setLand("Land fehlt");
-                }
-                
-                if(tfStadtOrt.getText().length() != 0){
-                    neueAdresseOrt.setStadt(tfStadtOrt.getText());}
-                else {
-                    neueAdresseOrt.setStadt("Stadt fehlt");
-                }
-                
-                if(tfStrasseOrt.getText().length() != 0){
-                    neueAdresseOrt.setStrasse(tfStrasseOrt.getText());}
-                else {
-                    neueAdresseOrt.setStrasse("Stadt fehlt");
-                }
-                
-                if(tfHausnummerOrt.getText().length() != 0){
-                    neueAdresseOrt.setHausnummer(Integer.parseInt(tfHausnummerOrt.getText()));}
-                else {
-                    neueAdresseOrt.setHausnummer(0);
-                }
-                
-                auftrag.setAdresse(neueAdresseOrt);
-                
-                adresseFrame.setVisible(false);
-            }
+        newLabel("", adressePanel);
+        newLabel("Kunde", adressePanel);
+        newLabel("Bauort", adressePanel);
+        newLabel("   Land", adressePanel);
+        JTextField tfLandKunde = newTF("", adressePanel);
+        JTextField tfLandOrt = newTF("", adressePanel);
+        newLabel("   Stadt", adressePanel);
+        JTextField tfStadtKunde = newTF("", adressePanel);
+        JTextField tfStadtOrt = newTF("", adressePanel);
+        newLabel("   Straße", adressePanel);
+        JTextField tfStrasseKunde = newTF("", adressePanel);
+        JTextField tfStrasseOrt = newTF("", adressePanel);
+        newLabel("   Hausnummer", adressePanel);
+        JTextField tfHausnummerKunde = newTF("", adressePanel);
+        JTextField tfHausnummerOrt = newTF("", adressePanel);
+        newLabel("   Mailadresse", adressePanel);
+        JTextField tfMailKunde = newTF("", adressePanel);
+        newLabel("", adressePanel);
+        newLabel("   Telefon", adressePanel);
+        JTextField tfTelefonKunde = newTF("", adressePanel);
+        JButton speichern = newButton("Speichern", adressePanel);
+
+        speichern.addActionListener((java.awt.event.ActionEvent e) -> {
+            Adresse neueAdresseKunde = new Adresse();
+            neueAdresseKunde.setLand(checkNull(tfLandKunde.getText().length(), tfLandKunde.getText(), "Kein Land"));           
+            neueAdresseKunde.setStadt(checkNull(tfStadtKunde.getText().length(), tfStadtKunde.getText(), "Keine Stadt"));           
+            neueAdresseKunde.setStrasse(checkNull(tfStrasseKunde.getText().length(), tfStrasseKunde.getText(), "Keine Straße"));           
+            neueAdresseKunde.setHausnummer(Integer.parseInt(checkNull(tfHausnummerKunde.getText().length(), tfHausnummerKunde.getText(), "0")));           
+            neueAdresseKunde.setTelefonnummer(checkNull(tfTelefonKunde.getText().length(), tfTelefonKunde.getText(), "Kein Telefon"));           
+            neueAdresseKunde.setMailadresse(checkNull(tfMailKunde.getText().length(), tfMailKunde.getText(), "Keine Email"));
+            auftrag.setAuftraggeberAdresse(neueAdresseKunde);
+            
+            Adresse neueAdresseOrt = new Adresse();
+            neueAdresseOrt.setLand(checkNull(tfLandOrt.getText().length(), tfLandOrt.getText(), "Kein Land"));
+            neueAdresseOrt.setStadt(checkNull(tfStadtOrt.getText().length(), tfStadtOrt.getText(), "Keine Stadt"));           
+            neueAdresseOrt.setStrasse(checkNull(tfStrasseOrt.getText().length(), tfStrasseOrt.getText(), "Keine Straße"));         
+            neueAdresseOrt.setHausnummer(Integer.parseInt(checkNull(tfHausnummerOrt.getText().length(), tfHausnummerOrt.getText(), "0")));         
+            neueAdresseOrt.setTelefonnummer(checkNull(tfTelefonKunde.getText().length(), tfTelefonKunde.getText(), "Kein Telefon"));         
+            neueAdresseOrt.setMailadresse(checkNull(tfMailKunde.getText().length(), tfMailKunde.getText(), "Keine Email"));    
+            auftrag.setAdresse(neueAdresseOrt);
+            
+            adresseFrame.setVisible(false);
         });
       
-   }
+   } // !!! Fertig und gekürzt !!!
         
-        
-        
-   
    //Bearbeiten ---------------------------------------------------------------------------------------------------------------  
-   public void bearbeitenAngestellterFrame (Angestellter angestellter) {
+   private void bearbeitenAngestellterFrame (Angestellter angestellter) {
        
    }
    
-   public void bearbeitenAuftragFrame (Auftrag auftrag, int index) {
-       
-        JDialog bearbeitenAuftragFrame = new JDialog();
-        bearbeitenAuftragFrame.setSize(330,600);
-        bearbeitenAuftragFrame.setLocation(700, 700);
-        bearbeitenAuftragFrame.setResizable(false);
-        JPanel bearbeitenAuftragPanel = new JPanel();
-        bearbeitenAuftragFrame.setTitle("Auftrag " + auftrag.getTitel() + " wird bearbeitet");
+   private void bearbeitenAuftragFrame (Auftrag auftrag, int index) {
+        JPanel bearbeitenAuftragPanel = givePanel(20,2);
+        JDialog bearbeitenAuftragFrame = giveFrame("Auftrag Bearbeiten", 330, 600, 580, 490, bearbeitenAuftragPanel);
         
-        JLabel titelLabel = new JLabel("     Titel ");
-        JLabel datenBauort = new JLabel("  Daten Bauort ---------");
-        JLabel datenKunde = new JLabel("  Daten Kunde ---------");
-        JLabel angestellteLabel = new JLabel("  Angestellte ----------");
-        JLabel ortLand = new JLabel("     Land: ");
-        JLabel ortStadt = new JLabel("     Stadt: ");
-        JLabel ortStrasse = new JLabel("     Straße: ");
-        JLabel ortHausnummer = new JLabel("     Hausnummer: ");
-        JLabel kundeLand = new JLabel("     Land: ");
-        JLabel kundeStadt = new JLabel("     Stadt: ");
-        JLabel kundeStrasse = new JLabel("     Straße: ");
-        JLabel kundeHausnummer = new JLabel("     Hausnummer: ");
-        JLabel kundeTelefonnummer = new JLabel("     Telefonnummer: ");
-        JLabel kundeMail = new JLabel("     Mailadresse: ");
-        JLabel kundeName = new JLabel("     Name: ");
-        JLabel projektleiterLabel = new JLabel("     Projektleiter:");
-        JLabel architektLabel = new JLabel("     Architekt:");
-        JLabel statikerLabel = new JLabel("     Statiker:");
-        JLabel bauarbeiterLabel = new JLabel("     Bauarbeiter:");
-        JButton auftragSpeichern = new JButton("Speichern");
-        JButton bauarbeiterBearbeiten = new JButton("Bearbeiten");
-        JButton architektAuswaehlen = new JButton("Auswählen");
-        JButton statikerAuswaehlen = new JButton("Auswählen");
-        JButton projektleiterAuswaehlen = new JButton("Auswählen");
-        JButton loeschenButton = new JButton("Löschen");
+        newLabel("     Titel ", bearbeitenAuftragPanel);
+        JTextField tfTitel = newTF(auftrag.getTitel(), bearbeitenAuftragPanel);
         
-        JTextField tfTitel = new JTextField(auftrag.getTitel());
-        JTextField tfOrtLand = new JTextField(auftrag.getAdresse().getLand());
-        JTextField tfOrtStadt = new JTextField(auftrag.getAdresse().getStadt());
-        JTextField tfOrtStrasse = new JTextField(auftrag.getAdresse().getStrasse());
-        JTextField tfOrtHausnummer = new JTextField(auftrag.getAdresse().getHausnummer());
-       
-        JTextField tfKundeName = new JTextField(auftrag.getAuftraggeberName());
-        JTextField tfKundeLand = new JTextField(auftrag.getAuftraggeberAdresse().getLand());
-        JTextField tfKundeStadt = new JTextField(auftrag.getAuftraggeberAdresse().getStadt());
-        JTextField tfKundeStrasse = new JTextField(auftrag.getAuftraggeberAdresse().getStrasse());
-        JTextField tfKundeHausnummer = new JTextField(auftrag.getAuftraggeberAdresse().getHausnummer());
-        JTextField tfKundeTelefonnummer = new JTextField(auftrag.getAuftraggeberAdresse().getTelefonnummer());
-        JTextField tfKundeMail = new JTextField(auftrag.getAuftraggeberAdresse().getMailadresse());
+        newLabel("  Daten Bauort ---------", bearbeitenAuftragPanel);
+        newLabel("--------------------", bearbeitenAuftragPanel);
+        newLabel("     Land: ", bearbeitenAuftragPanel);
+        JTextField tfOrtLand = newTF(auftrag.getAdresse().getLand(), bearbeitenAuftragPanel);
+        newLabel("     Stadt: ", bearbeitenAuftragPanel);
+        JTextField tfOrtStadt = newTF(auftrag.getAdresse().getStadt(), bearbeitenAuftragPanel);
+        newLabel("     Straße: ", bearbeitenAuftragPanel);
+        JTextField tfOrtStrasse = newTF(auftrag.getAdresse().getStrasse(), bearbeitenAuftragPanel);
+        newLabel("     Hausnummer: ", bearbeitenAuftragPanel);
+        JTextField tfOrtHausnummer = newTF("" + auftrag.getAdresse().getHausnummer(), bearbeitenAuftragPanel);
         
+        newLabel("  Daten Kunde ---------", bearbeitenAuftragPanel);
+        newLabel("--------------------", bearbeitenAuftragPanel);
+        newLabel("     Name: ", bearbeitenAuftragPanel);
+        JTextField tfKundeName = newTF(auftrag.getAuftraggeberName(), bearbeitenAuftragPanel);
+        newLabel("     Land: ", bearbeitenAuftragPanel);
+        JTextField tfKundeLand = newTF(auftrag.getAuftraggeberAdresse().getLand(), bearbeitenAuftragPanel);
+        newLabel("     Stadt: ", bearbeitenAuftragPanel);
+        JTextField tfKundeStadt = newTF(auftrag.getAuftraggeberAdresse().getStadt(), bearbeitenAuftragPanel);
+        newLabel("     Straße: ", bearbeitenAuftragPanel);
+        JTextField tfKundeStrasse = newTF(auftrag.getAuftraggeberAdresse().getStrasse(), bearbeitenAuftragPanel);
+        newLabel("     Hausnummer: ", bearbeitenAuftragPanel);
+        JTextField tfKundeHausnummer = newTF("" + auftrag.getAuftraggeberAdresse().getHausnummer(), bearbeitenAuftragPanel);
+        newLabel("     Telefonnummer: ", bearbeitenAuftragPanel);
+        JTextField tfKundeTelefonnummer = newTF(auftrag.getAuftraggeberAdresse().getTelefonnummer(), bearbeitenAuftragPanel);
+        newLabel("     Mailadresse: ", bearbeitenAuftragPanel);
+        JTextField tfKundeMail = newTF(auftrag.getAuftraggeberAdresse().getMailadresse(), bearbeitenAuftragPanel);
         
-        JLabel zwischenraum1 = new JLabel("--------------------");
-        JLabel zwischenraum2 = new JLabel("--------------------");
-        JLabel zwischenraum3 = new JLabel("--------------------");
-        JLabel zwischenraum4 = new JLabel("");
-        
-        bearbeitenAuftragPanel.add(titelLabel);
-        bearbeitenAuftragPanel.add(tfTitel);
-        
-        bearbeitenAuftragPanel.add(datenBauort);
-        bearbeitenAuftragPanel.add(zwischenraum1);
-        
-        bearbeitenAuftragPanel.add(ortLand);
-        bearbeitenAuftragPanel.add(tfOrtLand);
-        
-        bearbeitenAuftragPanel.add(ortStadt);
-        bearbeitenAuftragPanel.add(tfOrtStadt);
-        
-        bearbeitenAuftragPanel.add(ortStrasse);
-        bearbeitenAuftragPanel.add(tfOrtStrasse);
-       
-        bearbeitenAuftragPanel.add(ortHausnummer);
-        bearbeitenAuftragPanel.add(tfOrtHausnummer);
-        
-        bearbeitenAuftragPanel.add(datenKunde);
-        bearbeitenAuftragPanel.add(zwischenraum2);
-        
-        bearbeitenAuftragPanel.add(kundeName);
-        bearbeitenAuftragPanel.add(tfKundeName);
-        
-        bearbeitenAuftragPanel.add(kundeLand);
-        bearbeitenAuftragPanel.add(tfKundeLand);
-        
-        bearbeitenAuftragPanel.add(kundeStadt);
-        bearbeitenAuftragPanel.add(tfKundeStadt);
-        
-        bearbeitenAuftragPanel.add(kundeStrasse);
-        bearbeitenAuftragPanel.add(tfKundeStrasse);
-        
-        bearbeitenAuftragPanel.add(kundeHausnummer);
-        bearbeitenAuftragPanel.add(tfKundeHausnummer);
-        
-        bearbeitenAuftragPanel.add(kundeMail);
-        bearbeitenAuftragPanel.add(tfKundeMail);
-        
-        bearbeitenAuftragPanel.add(kundeTelefonnummer);
-        bearbeitenAuftragPanel.add(tfKundeTelefonnummer);
-        
-        bearbeitenAuftragPanel.add(angestellteLabel);
-        bearbeitenAuftragPanel.add(zwischenraum3);
-        
-        bearbeitenAuftragPanel.add(projektleiterLabel);
-        bearbeitenAuftragPanel.add(projektleiterAuswaehlen);
-        
-        bearbeitenAuftragPanel.add(architektLabel);
-        bearbeitenAuftragPanel.add(architektAuswaehlen);
-        
-        bearbeitenAuftragPanel.add(statikerLabel);
-        bearbeitenAuftragPanel.add(statikerAuswaehlen);
-        
-        bearbeitenAuftragPanel.add(bauarbeiterLabel);
-        bearbeitenAuftragPanel.add(bauarbeiterBearbeiten);
-        
-        bearbeitenAuftragPanel.add(loeschenButton);
-        bearbeitenAuftragPanel.add(auftragSpeichern);
-       
-        bearbeitenAuftragPanel.setLayout( new java.awt.GridLayout( 20, 2 ) );
-        bearbeitenAuftragFrame.add(bearbeitenAuftragPanel);
-        bearbeitenAuftragFrame.setVisible(true);
+        newLabel("  Angestellte ----------", bearbeitenAuftragPanel);
+        newLabel("--------------------", bearbeitenAuftragPanel);
+        newLabel("     Projektleiter:", bearbeitenAuftragPanel);
+        JButton projektleiterAuswaehlen = newButton("Auswählen", bearbeitenAuftragPanel);
+        newLabel("     Architekt:", bearbeitenAuftragPanel);
+        JButton architektAuswaehlen = newButton("Auswählen", bearbeitenAuftragPanel);
+        newLabel("     Statiker:", bearbeitenAuftragPanel);
+        JButton statikerAuswaehlen = newButton("Auswählen", bearbeitenAuftragPanel);
+        newLabel("     Bauarbeiter:", bearbeitenAuftragPanel);
+        JButton bauarbeiterBearbeiten = newButton("Bearbeiten", bearbeitenAuftragPanel);
+        JButton loeschenButton = newButton("Löschen", bearbeitenAuftragPanel);
+        JButton auftragSpeichern = newButton("Speichern", bearbeitenAuftragPanel);
         
         auftragSpeichern.addActionListener((java.awt.event.ActionEvent e) -> {
              auftrag.setTitel(tfTitel.getText());
+             auftrag.getAdresse().setLand(tfOrtLand.getText());
+             auftrag.getAdresse().setStadt(tfOrtStadt.getText());
+             auftrag.getAdresse().setStrasse(tfOrtStrasse.getText());
+             auftrag.getAdresse().setHausnummer(Integer.parseInt(tfOrtHausnummer.getText()));
+             auftrag.setAuftraggeberName(tfKundeName.getText());
+             auftrag.getAuftraggeberAdresse().setLand(tfKundeLand.getText());
+             auftrag.getAuftraggeberAdresse().setStadt(tfKundeStadt.getText());
+             auftrag.getAuftraggeberAdresse().setStrasse(tfKundeStrasse.getText());
+             auftrag.getAuftraggeberAdresse().setHausnummer(Integer.parseInt(tfKundeHausnummer.getText()));
+             auftrag.getAuftraggeberAdresse().setTelefonnummer(tfKundeTelefonnummer.getText());
+             auftrag.getAuftraggeberAdresse().setMailadresse(tfKundeMail.getText());
+             bearbeitenAuftragFrame.setVisible(false);
         });
         
         loeschenButton.addActionListener((java.awt.event.ActionEvent e) -> {
-             main.auftragListe.remove(index);
+             auftragLoeschen(auftrag, index);
+             bearbeitenAuftragFrame.setVisible(false);
         });
         
         projektleiterAuswaehlen.addActionListener((java.awt.event.ActionEvent e) -> {
             verschieben(auftrag, 3);
         });
-         
-         
+             
         architektAuswaehlen.addActionListener((java.awt.event.ActionEvent e) -> {
              verschieben(auftrag, 1);
         });
-          
-          
+
         statikerAuswaehlen.addActionListener((java.awt.event.ActionEvent e) -> {
              verschieben(auftrag, 2);
         });
@@ -649,451 +384,484 @@ public class Frame {
              verschieben(auftrag, 0);
         });
         
-        
-        
-        
-   } //Eigentlich fertig
-   
+   } //Fertig und gekürzt
    
    //Übersicht ----------------------------------------------------------------------------------------------------------------  
-    public void uebersichtAngestellteFrame () {
-        JDialog uebersichtAngestellteFrame = new JDialog();
-        uebersichtAngestellteFrame.setSize(230,400);
-        uebersichtAngestellteFrame.setLocation(700, 700);
-        uebersichtAngestellteFrame.setResizable(false);
-        JPanel uebersichtAngestelltePanel = new JPanel();
-        uebersichtAngestellteFrame.setTitle("Übersicht Angestellte");
-        
-        JLabel bauarbeiterLabel = new JLabel("Bauarbeiter", JLabel.CENTER);
-        JLabel linie1 = new JLabel("--------------------", JLabel.CENTER);
-        JLabel linie2 = new JLabel("--------------------", JLabel.CENTER);
-        JLabel linie3 = new JLabel("--------------------", JLabel.CENTER);
-        JLabel architektLabel = new JLabel("Architekt", JLabel.CENTER);
-        JLabel statikerLabel = new JLabel("Statiker", JLabel.CENTER);
-        JLabel projektleiterLabel = new JLabel("Projektleiter", JLabel.CENTER);
-        JButton bauarbeiterButton = new JButton("Details");
-        JButton architektButton = new JButton("Details");
-        JButton statikerButton = new JButton("Details");
-        JButton projektleiterButton = new JButton("Details");
-        
-        ArrayList<String> listeBauarbeiter = new ArrayList<>();
-        ArrayList<String> listeArchitekten = new ArrayList<>();
-        ArrayList<String> listeStatiker = new ArrayList<>();
-        ArrayList<String> listeProjektleiter = new ArrayList<>();
-        
+    private void uebersichtAngestellteFrame () {
+        JPanel uebersichtAngestelltePanel = givePanel(15,1);
+        JDialog uebersichtAngestellteFrame = giveFrame("Übersicht Angestellte", 230, 450, 0, 250, uebersichtAngestelltePanel);
+  
+        JComboBox bauarbeiterPop = new JComboBox();
+        if(main.bauarbeiterListe != null){
         for(int i = 0; i < main.bauarbeiterListe.size(); i++){
-            listeBauarbeiter.add(main.bauarbeiterListe.get(i).getName());
-        }
-        
+            bauarbeiterPop.addItem(main.bauarbeiterListe.get(i).getName());
+        }}
+        JComboBox statikerPop = new JComboBox();
+        if(main.statikerListe != null){
         for(int i = 0; i < main.statikerListe.size(); i++){
-            listeStatiker.add(main.statikerListe.get(i).getName());
-        }
-        
+            statikerPop.addItem(main.statikerListe.get(i).getName());
+        }}
+        JComboBox architektPop = new JComboBox();
+        if(main.architektListe != null){
         for(int i = 0; i < main.architektListe.size(); i++){
-            listeArchitekten.add(main.architektListe.get(i).getName());
-        }
-        
+            architektPop.addItem(main.architektListe.get(i).getName());
+        }}
+        JComboBox projektleiterPop = new JComboBox();
+        if(main.projektleiterListe != null){
         for(int i = 0; i < main.projektleiterListe.size(); i++){
-            listeProjektleiter.add(main.projektleiterListe.get(i).getName());
-        }
-        
-        String[] bauarbeiter = listeBauarbeiter.toArray(new String[listeBauarbeiter.size()]);
-        JComboBox bauarbeiterPop = new JComboBox(bauarbeiter);
+            projektleiterPop.addItem(main.projektleiterListe.get(i).getName());
+        }}
        
-        String[] statiker = listeStatiker.toArray(new String[listeStatiker.size()]);
-        JComboBox statikerPop = new JComboBox(statiker);
-        
-        String[] architekt = listeArchitekten.toArray(new String[listeArchitekten.size()]);
-        JComboBox architektPop = new JComboBox(architekt);
-        
-        String[] projektleiter = listeProjektleiter.toArray(new String[listeProjektleiter.size()]);
-        JComboBox projektleiterPop = new JComboBox(projektleiter);
-        
-        uebersichtAngestelltePanel.add(bauarbeiterLabel);
+        newLabelM("Bauarbeiter", uebersichtAngestelltePanel);
         uebersichtAngestelltePanel.add(bauarbeiterPop);
-        uebersichtAngestelltePanel.add(bauarbeiterButton);
-        
-        uebersichtAngestelltePanel.add(linie1);
-        
-        uebersichtAngestelltePanel.add(statikerLabel);
-        uebersichtAngestelltePanel.add(statikerPop);
-        uebersichtAngestelltePanel.add(statikerButton);
-        
-        uebersichtAngestelltePanel.add(linie2);
-        
-        uebersichtAngestelltePanel.add(architektLabel);
+        JButton bauarbeiterButton = newButton("Details", uebersichtAngestelltePanel);
+        newLabelM("--------------------", uebersichtAngestelltePanel);
+        newLabelM("Architekt", uebersichtAngestelltePanel);
         uebersichtAngestelltePanel.add(architektPop);
-        uebersichtAngestelltePanel.add(architektButton);
-        
-        uebersichtAngestelltePanel.add(linie3); 
-        
-        uebersichtAngestelltePanel.add(projektleiterLabel);
+        JButton architektButton = newButton("Details", uebersichtAngestelltePanel);
+        newLabelM("--------------------", uebersichtAngestelltePanel);
+        newLabelM("Statiker", uebersichtAngestelltePanel);
+        uebersichtAngestelltePanel.add(statikerPop);
+        JButton statikerButton = newButton("Details", uebersichtAngestelltePanel);
+        newLabelM("--------------------", uebersichtAngestelltePanel);
+        newLabelM("Projektleiter",uebersichtAngestelltePanel);
         uebersichtAngestelltePanel.add(projektleiterPop);
-        uebersichtAngestelltePanel.add(projektleiterButton);
+        JButton projektleiterButton = newButton("Details", uebersichtAngestelltePanel);
+       
+        bauarbeiterButton.addActionListener((java.awt.event.ActionEvent e) -> {
+            detailAngestellter(main.bauarbeiterListe.get(bauarbeiterPop.getSelectedIndex()), 0, bauarbeiterPop.getSelectedIndex());
+        });
         
+        architektButton.addActionListener((java.awt.event.ActionEvent e) -> {
+            detailAngestellter(main.architektListe.get(bauarbeiterPop.getSelectedIndex()), 2, 1);
+        });
         
-        uebersichtAngestelltePanel.setLayout( new java.awt.GridLayout( 15, 1 ) );
+        statikerButton.addActionListener((java.awt.event.ActionEvent e) -> {
+            detailAngestellter(main.statikerListe.get(bauarbeiterPop.getSelectedIndex()), 2, 1);
+        });
         
-        uebersichtAngestellteFrame.add(uebersichtAngestelltePanel);
-        uebersichtAngestellteFrame.setVisible(true);
-   } //Fertig
+        projektleiterButton.addActionListener((java.awt.event.ActionEvent e) -> {
+            detailAngestellter(main.projektleiterListe.get(bauarbeiterPop.getSelectedIndex()), 1, bauarbeiterPop.getSelectedIndex());
+        });
+      
+   } // Gekürzt - Verknüpfungen der Buttons fehlt noch!
    
-    public void uebersichtAuftragFrame () {
-        JDialog uebersichtAuftragFrame = new JDialog();
-        uebersichtAuftragFrame.setSize(230,100);
-        uebersichtAuftragFrame.setLocation(700, 700);
-        uebersichtAuftragFrame.setResizable(false);
-        JPanel uebersichtAuftragPanel = new JPanel();
-        uebersichtAuftragFrame.setTitle("Übersicht Aufträge");
-        
-        JLabel auftragLabel = new JLabel("Aufträge", JLabel.CENTER);
-        JButton auftragButton = new JButton("Details");
-       
-        ArrayList<String> listeAuftraege = new ArrayList<>();
-        
-        for(int i = 0; i < main.auftragListe.size(); i++){
-            listeAuftraege.add(main.auftragListe.get(i).getTitel());
-        }
-        
-        
-        String[] auftraege = listeAuftraege.toArray(new String[listeAuftraege.size()]);
-        JComboBox auftraegePop = new JComboBox(auftraege);
-       
-        uebersichtAuftragPanel.add(auftragLabel);
-        uebersichtAuftragPanel.add(auftraegePop);
-        uebersichtAuftragPanel.add(auftragButton);
+    private void uebersichtAuftragFrame (int auswahl) {
+        JPanel uebersichtAuftragPanel = givePanel(3,1);
+        JDialog uebersichtAuftragFrame = giveFrame("Übersicht Auftrag", 230, 100, 0, 490, uebersichtAuftragPanel);
 
-        uebersichtAuftragPanel.setLayout( new java.awt.GridLayout( 3, 1 ) );
-        
-        uebersichtAuftragFrame.add(uebersichtAuftragPanel);
-        uebersichtAuftragFrame.setVisible(true);
-        
+        newLabelM("Aufträge", uebersichtAuftragPanel);
+        JComboBox auftraegePop = new JComboBox();
+        for(int i = 0; i < main.auftragListe.size(); i++){
+            auftraegePop.addItem(main.auftragListe.get(i).getTitel());
+        }
+        uebersichtAuftragPanel.add(auftraegePop);
+        JButton auftragButton = newButton("Details", uebersichtAuftragPanel);
+      
         auftragButton.addActionListener((java.awt.event.ActionEvent e) -> {
-            System.out.println("Button gedrückt");
-            
             String ausgweahltesObjekt = (String)auftraegePop.getSelectedItem();
             
             for(int index=0; index < main.auftragListe.size(); index++){
                 
                 if(ausgweahltesObjekt.equals(main.auftragListe.get(index).getTitel())){
-                    System.out.println("weiter an Detail.");
-                    detailAuftrag(main.auftragListe.get(index), index);
-                    
+                    switch(auswahl){
+                        case 0:
+                            detailAuftrag(main.auftragListe.get(index), index); 
+                            break;
+                        case 1:
+                            bearbeitenAuftragFrame(main.auftragListe.get(index), index); 
+                            break;
+                    }
                 }
             }
         });
-   } //Fertig
-   
-   
-   
+   } //!!! Fertig und gekürzt !!!
    
    //Detailansicht --------------------------------------------------------------------------------------------------------------  
-   public void detailAngestellter (Angestellter angestellter){
-      
-        JDialog detailAngestellterFrame = new JDialog();
-        detailAngestellterFrame.setSize(330,300);
-        detailAngestellterFrame.setLocation(700, 700);
-        detailAngestellterFrame.setResizable(false);
-        JPanel detailAngestellterPanel = new JPanel();
-        
-        detailAngestellterFrame.setTitle("Übersicht " + angestellter.getName());
+   private void detailAngestellter (Angestellter angestellter, int auswahl, int index){
+        JPanel detailAngestellterPanel = givePanel(8,2);
+        JDialog detailAngestellterFrame = giveFrame("Detail Angestellter", 380, 180, 230, 250, detailAngestellterPanel);
        
-        JLabel nameLabel = new JLabel("Name");
-        JLabel adresseLabel = new JLabel("Adresse des Angestellten:");
-        JLabel gehaltLabel = new JLabel("Daten des Auftraggebers:");
+        newLabel("   Name", detailAngestellterPanel);
+        System.out.println(angestellter.getName());
+        newLabel(angestellter.getName(), detailAngestellterPanel);
+        newLabel("   Adresse des Angestellten:", detailAngestellterPanel);
+        newLabel(angestellter.getAdresse().getStadt() + ", " + angestellter.getAdresse().getLand(), detailAngestellterPanel);
+        newLabel("", detailAngestellterPanel);
+        newLabel(angestellter.getAdresse().getStrasse() + " " + angestellter.getAdresse().getHausnummer(), detailAngestellterPanel);
+        newLabel("", detailAngestellterPanel);
+        newLabel(angestellter.getAdresse().getMailadresse(), detailAngestellterPanel);
+        newLabel("", detailAngestellterPanel);
+        newLabel(angestellter.getAdresse().getTelefonnummer(), detailAngestellterPanel);
+        newLabel("   Gehalt:", detailAngestellterPanel);
+        newLabel(Float.toString(angestellter.getGehalt()), detailAngestellterPanel);
 
-        JLabel angestellterName = new JLabel(angestellter.getName());
-        JLabel angestellterStadtLand = new JLabel(angestellter.getAdresse().getStadt() + ", " + angestellter.getAdresse().getLand());
-        JLabel angestellterStrasseHausnummer = new JLabel(angestellter.getAdresse().getStrasse() + " " + angestellter.getAdresse().getHausnummer());
-        JLabel angestellterMail = new JLabel(angestellter.getAdresse().getMailadresse());
-        JLabel angestellterTelefonnummer = new JLabel(angestellter.getAdresse().getTelefonnummer());
-        JLabel angestellterGehalt = new JLabel(Float.toString(angestellter.getGehalt()));
-      
-    
-        JButton bearbeitenButton = new JButton("Bearbeiten");
-        JLabel zwischenraum1 = new JLabel("");
-        JLabel zwischenraum2 = new JLabel("");
-        JLabel zwischenraum3 = new JLabel("");
-        JLabel zwischenraum4 = new JLabel("");
-        
-        detailAngestellterPanel.add(nameLabel);
-        detailAngestellterPanel.add(angestellterName);
-        
-        detailAngestellterPanel.add(adresseLabel);
-        detailAngestellterPanel.add(angestellterStadtLand);
-        detailAngestellterPanel.add(zwischenraum1);
-        detailAngestellterPanel.add(angestellterStrasseHausnummer);
-        detailAngestellterPanel.add(zwischenraum2);
-        detailAngestellterPanel.add(angestellterMail);
-        detailAngestellterPanel.add(zwischenraum3);
-        detailAngestellterPanel.add(angestellterTelefonnummer);
-        detailAngestellterPanel.add(gehaltLabel);
-        detailAngestellterPanel.add(angestellterGehalt);
-        detailAngestellterPanel.add(zwischenraum4);
-        detailAngestellterPanel.add(bearbeitenButton);
-        
-        
-        detailAngestellterPanel.setLayout( new java.awt.GridLayout( 12, 2 ) );
-        detailAngestellterFrame.add(detailAngestellterPanel);
-        detailAngestellterFrame.setVisible(true);
+        switch (auswahl){
+            case 0:
+                newLabel("   Typ:", detailAngestellterPanel);
+                newLabel(main.bauarbeiterListe.get(index).getBauarbeiterTyp(), detailAngestellterPanel);
+                break;
+            case 1: 
+                newLabel("   Erstehilfe:", detailAngestellterPanel);
+                newLabel(Boolean.toString(main.projektleiterListe.get(index).getErsteHilfe()), detailAngestellterPanel);
+                break;
+            case 2:
+                newLabel("", detailAngestellterPanel);
+                newLabel("", detailAngestellterPanel);
+        }
+        newLabel("", detailAngestellterPanel);
+        JButton bearbeitenButton = newButton("Bearbeiten", detailAngestellterPanel);
         
         bearbeitenButton.addActionListener((java.awt.event.ActionEvent e) -> {
             bearbeitenAngestellterFrame(angestellter);
         });
        
-   }
+   } //!!! Fertig und gekürzt !!!
    
-   public void detailAuftrag (Auftrag auftrag, int index){
-      
-        JDialog detailAuftragFrame = new JDialog();
-        detailAuftragFrame.setSize(350,300);
-        detailAuftragFrame.setLocation(720, 700);
-        detailAuftragFrame.setResizable(false);
-        JPanel detailAuftragPanel = new JPanel();
-
-        detailAuftragFrame.setTitle("Übersicht :" + auftrag.getTitel());
-        System.out.println(auftrag.getTitel());
-        System.out.println("1");
-        JLabel titelLabel = new JLabel("   Auftrag:");
-        JLabel adresseOrtLabel = new JLabel("   Daten des Auftrages:");
-        JLabel adresseKundeLabel = new JLabel("   Daten des Auftraggebers:");
-        JLabel projektleiterLabel = new JLabel("   Projektleiter:");
-        JLabel architektLabel = new JLabel("   Architekt:");
-        JLabel statikerLabel = new JLabel("   Statiker:");
-        JLabel bauarbeiterLabel = new JLabel("   Bauarbeiter:");
+   private void detailAuftrag (Auftrag auftrag, int index){
+        JPanel detailAuftragPanel = givePanel(13,2);
+        JDialog detailAuftragFrame = giveFrame("Detail Auftrag", 350, 300, 230, 490, detailAuftragPanel);
        
-        ArrayList<String> listeBauarbeiter = new ArrayList<>();
-        JComboBox bauarbeiterPop = new JComboBox();
+        newLabel("   Auftrag:", detailAuftragPanel);
+        newLabel(auftrag.getTitel(), detailAuftragPanel);
+        newLabel("   Daten des Auftrages:", detailAuftragPanel);
+        newLabel(auftrag.getAdresse().getStadt() + ", " + auftrag.getAdresse().getLand(), detailAuftragPanel);
+        newLabel("", detailAuftragPanel);
+        newLabel(auftrag.getAdresse().getStrasse() + " " + auftrag.getAdresse().getHausnummer(), detailAuftragPanel);
+        newLabel("   Daten des Auftraggebers:", detailAuftragPanel);
+        newLabel(auftrag.getAuftraggeberName(), detailAuftragPanel);
+        newLabel("", detailAuftragPanel);
+        newLabel(auftrag.getAuftraggeberAdresse().getStadt() + ", " + auftrag.getAuftraggeberAdresse().getLand(), detailAuftragPanel);
+        newLabel("", detailAuftragPanel);
+        newLabel(auftrag.getAuftraggeberAdresse().getStrasse() + " " + auftrag.getAuftraggeberAdresse().getHausnummer(), detailAuftragPanel);
+        newLabel("", detailAuftragPanel);
+        newLabel(auftrag.getAuftraggeberAdresse().getMailadresse(), detailAuftragPanel);
+        newLabel("", detailAuftragPanel);
+        newLabel(auftrag.getAuftraggeberAdresse().getTelefonnummer(), detailAuftragPanel);
         
+        newLabel("   Projektleiter:", detailAuftragPanel);
+        if(auftrag.getProjektleiter() != null){
+            newLabel(auftrag.getProjektleiter().getName(), detailAuftragPanel);
+        } 
+        else{
+            newLabel("Kein Projektleiter", detailAuftragPanel);
+        } 
+        newLabel("   Architekt:", detailAuftragPanel);
+        if(auftrag.getArchitekt() != null){
+            newLabel(auftrag.getArchitekt().getName(), detailAuftragPanel);
+        } 
+        else{
+            newLabel("Kein Architekt", detailAuftragPanel);
+        }
+        newLabel("   Statiker:", detailAuftragPanel);
+        if(auftrag.getStatiker() != null){
+            newLabel(auftrag.getStatiker().getName(), detailAuftragPanel);
+        } 
+        else{
+            newLabel("Kein Statiker", detailAuftragPanel);
+        }
+        newLabel("   Bauarbeiter:", detailAuftragPanel);
+        
+        JComboBox bauarbeiterPop = new JComboBox();
         if(auftrag.getBauarbeiterListe()!= null){
         for(int i = 0; i < auftrag.getBauarbeiterListe().size(); i++){
-            bauarbeiterPop.addItem(auftrag.getBauarbeiterListe().get(i).getName());
-            
-        }      
-        } 
-
-        JLabel titel = new JLabel(auftrag.getTitel());
-        JLabel projektleiterDaten = new JLabel("Kein Projektleiter");
-        JLabel architektDaten = new JLabel("Kein Architekt");
-        JLabel statikerDaten = new JLabel("Kein Statiker");
-        
-       
-        if(auftrag.getProjektleiter() != null){
-        projektleiterDaten.setText(auftrag.getProjektleiter().getName());
-        } 
-       
-        if(auftrag.getArchitekt() != null){
-        architektDaten.setText(auftrag.getArchitekt().getName());
-        }
-        
-        if(auftrag.getStatiker() != null){
-        statikerDaten.setText(auftrag.getStatiker().getName());
-        }
-        
-        JLabel auftraggeberName = new JLabel(auftrag.getAuftraggeberName());
-        JLabel auftraggeberStadtLand = new JLabel(auftrag.getAuftraggeberAdresse().getStadt() + ", " + auftrag.getAuftraggeberAdresse().getLand());
-        JLabel auftraggeberStrasseHausnummer = new JLabel(auftrag.getAuftraggeberAdresse().getStrasse() + " " + auftrag.getAuftraggeberAdresse().getHausnummer());
-        JLabel auftraggeberMail = new JLabel(auftrag.getAuftraggeberAdresse().getMailadresse());
-        JLabel auftraggeberTelefonnummer = new JLabel(auftrag.getAuftraggeberAdresse().getTelefonnummer());
-       
-        JLabel ortStadtLand = new JLabel(auftrag.getAdresse().getStadt() + ", " + auftrag.getAdresse().getLand());
-        JLabel ortStrasseHausnummer = new JLabel(auftrag.getAdresse().getStrasse() + " " + auftrag.getAdresse().getHausnummer());
-        JButton bearbeitenButton = new JButton("Bearbeiten");
-        JLabel zwischenraum1 = new JLabel("");
-        JLabel zwischenraum2 = new JLabel("");
-        JLabel zwischenraum3 = new JLabel("");
-        JLabel zwischenraum4 = new JLabel("");
-        JLabel zwischenraum5 = new JLabel("");
-        JLabel zwischenraum6 = new JLabel("");
-        
-        detailAuftragPanel.add(titelLabel);
-        detailAuftragPanel.add(titel);
-        System.out.println("5");
-        detailAuftragPanel.add(adresseOrtLabel);
-        detailAuftragPanel.add(ortStadtLand);
-        detailAuftragPanel.add(zwischenraum1);
-        detailAuftragPanel.add(ortStrasseHausnummer);
-      
-        detailAuftragPanel.add(adresseKundeLabel);
-        detailAuftragPanel.add(auftraggeberName);
-        detailAuftragPanel.add(zwischenraum2);
-        detailAuftragPanel.add(auftraggeberStadtLand);
-        detailAuftragPanel.add(zwischenraum3);
-        detailAuftragPanel.add(auftraggeberStrasseHausnummer);
-        detailAuftragPanel.add(zwischenraum4);
-        detailAuftragPanel.add(auftraggeberMail);
-        detailAuftragPanel.add(zwischenraum5);
-        detailAuftragPanel.add(auftraggeberTelefonnummer);
-        
-        detailAuftragPanel.add(projektleiterLabel);
-        detailAuftragPanel.add(projektleiterDaten);
-       
-        detailAuftragPanel.add(architektLabel);
-        detailAuftragPanel.add(architektDaten);
-        
-        detailAuftragPanel.add(statikerLabel);
-        detailAuftragPanel.add(statikerDaten);
-        
-        detailAuftragPanel.add(bauarbeiterLabel);
+            bauarbeiterPop.addItem(auftrag.getBauarbeiterListe().get(i).getName()); 
+        }} 
         detailAuftragPanel.add(bauarbeiterPop);
+        newLabel("", detailAuftragPanel);
+        JButton bearbeitenButton = newButton("Bearbeiten", detailAuftragPanel);
 
-        detailAuftragPanel.add(zwischenraum6);
-        detailAuftragPanel.add(bearbeitenButton);
-        detailAuftragPanel.setLayout( new java.awt.GridLayout( 13, 2 ) );
-        detailAuftragFrame.add(detailAuftragPanel);
-        detailAuftragFrame.setVisible(true);
-        
         bearbeitenButton.addActionListener((java.awt.event.ActionEvent e) -> {
             bearbeitenAuftragFrame(auftrag, index);
         });
        
-   } //Müsste fertig sein
-   
+       
+   } // !!! Fertig und gekürzt !!!
    
    //Verschieben -----------------------------------------------------------------------------------------------------------------  
-    public void verschieben (Auftrag auftrag, int auswahl){
-   
-        JDialog verschiebenFrame = new JDialog();
-        JPanel verschiebenPanel = new JPanel();
-        verschiebenFrame.setSize(340,100);
-        verschiebenPanel.setLayout( new java.awt.GridLayout( 3, 3 ) );
-         
+    private void verschieben (Auftrag auftrag, int auswahl){
+        JPanel verschiebenPanel = givePanel(3,3);
+        JDialog verschiebenFrame = giveFrame("Angestellte Verschieben", 380, 100, 910, 490, verschiebenPanel);
+        
         switch (auswahl){
             case 0:
-                JLabel akutelleBauarbeiterLabel = new JLabel("Liste der aktuellen Bauarbeiter");
-                JLabel verfuegbareBauarbeiterLabel = new JLabel("Liste der verfügbaren Bauarbeiter");
-                JButton hinzufuegenB = new JButton("<---");
-                JButton entfernenB = new JButton("--->");
-                JLabel zwischenraum1 = new JLabel("");
-                JLabel zwischenraum2 = new JLabel("");
+                newLabelM("Liste der aktuellen Bauarbeiter", verschiebenPanel);
+                newLabel("", verschiebenPanel);
+                newLabelM("Liste der verfügbaren Bauarbeiter", verschiebenPanel);
                 JComboBox aktuelleBauarbeiterPop = new JComboBox();
                 if(auftrag.getBauarbeiterListe() != null){
                 for(int i = 0; i < auftrag.getBauarbeiterListe().size(); i++){
-                aktuelleBauarbeiterPop.addItem(auftrag.getBauarbeiterListe().get(i).getName());
-                }
-                }
-                
-             
+                    aktuelleBauarbeiterPop.addItem(auftrag.getBauarbeiterListe().get(i).getName());
+                }}
+                verschiebenPanel.add(aktuelleBauarbeiterPop);
+                JButton hinzufuegenB = newButton("<---", verschiebenPanel);
                 JComboBox verfuegbareBauarbeiterPop = new JComboBox();
+                if(main.bauarbeiterListe != null){
                 for(int i = 0; i < main.bauarbeiterListe.size(); i++){
                 verfuegbareBauarbeiterPop.addItem(main.bauarbeiterListe.get(i).getName());
-                }
-                
-                verschiebenPanel.add(akutelleBauarbeiterLabel);
-                verschiebenPanel.add(zwischenraum1);
-                verschiebenPanel.add(verfuegbareBauarbeiterLabel);
-                verschiebenPanel.add(aktuelleBauarbeiterPop);
-                verschiebenPanel.add(hinzufuegenB);
+                }}
                 verschiebenPanel.add(verfuegbareBauarbeiterPop);
-                verschiebenPanel.add(zwischenraum2);
-                verschiebenPanel.add(entfernenB);
-                
-                
-                verschiebenFrame.add(verschiebenPanel);
-                verschiebenFrame.setVisible(true);
+                newLabel("", verschiebenPanel);
+                JButton entfernenB = newButton("--->", verschiebenPanel);
                 
                 hinzufuegenB.addActionListener((java.awt.event.ActionEvent e) -> {
+                    Bauarbeiter tempBauarbeiter = main.bauarbeiterListe.get(verfuegbareBauarbeiterPop.getSelectedIndex());                
+                    aktuelleBauarbeiterPop.addItem(main.bauarbeiterListe.get(verfuegbareBauarbeiterPop.getSelectedIndex()).getName());                 
+                    main.bauarbeiterListe.remove(verfuegbareBauarbeiterPop.getSelectedIndex());                
+                    verfuegbareBauarbeiterPop.removeItemAt(verfuegbareBauarbeiterPop.getSelectedIndex());                            
+                    auftrag.addBauarbeiterToListe(tempBauarbeiter);           
+                });
                 
-                    
-                    Bauarbeiter tempBauarbeiter = new Bauarbeiter(); 
-                    tempBauarbeiter =  main.bauarbeiterListe.get(verfuegbareBauarbeiterPop.getSelectedIndex());
-                    System.out.println("Gespiegelt");
-                    
-                    aktuelleBauarbeiterPop.addItem(main.bauarbeiterListe.get(verfuegbareBauarbeiterPop.getSelectedIndex()).getName());
-                    System.out.println("In das neue Pop");
+                entfernenB.addActionListener((java.awt.event.ActionEvent e) -> {
+                    Bauarbeiter tempBauarbeiter = auftrag.bauarbeiterListe.get(aktuelleBauarbeiterPop.getSelectedIndex());
+                    verfuegbareBauarbeiterPop.addItem(tempBauarbeiter.getName());
+                    auftrag.bauarbeiterListe.remove(aktuelleBauarbeiterPop.getSelectedIndex());
+                    aktuelleBauarbeiterPop.removeItemAt(aktuelleBauarbeiterPop.getSelectedIndex());
+                    main.bauarbeiterListe.add(tempBauarbeiter);
+                });
+                break;
+     
+            case 1: 
+                verschiebenFrame.setLocation(910, 580);
+                newLabel("Aktueller Architekt", verschiebenPanel);
+                newLabel("", verschiebenPanel);
+                newLabel("Liste der verfügbaren Architekten", verschiebenPanel);
+                JLabel aktuellerArchitekt = new JLabel("Kein Architekt");
+                if(auftrag.getArchitekt() != null){
+                    aktuellerArchitekt.setText(auftrag.getArchitekt().getName());
+                } 
+                verschiebenPanel.add(aktuellerArchitekt);
+                JButton hinzufuegenA = newButton("<---", verschiebenPanel);
+                JComboBox architektPop = new JComboBox();
+                if(main.architektListe != null){
+                    for(int i = 0; i < main.architektListe.size(); i++){
+                    architektPop.addItem(main.architektListe.get(i).getName());
+                    }
+                }
+                verschiebenPanel.add(architektPop);
+                newLabel("", verschiebenPanel);
+                JButton entfernenA = newButton("--->", verschiebenPanel);
 
-                    main.bauarbeiterListe.remove(verfuegbareBauarbeiterPop.getSelectedIndex());
-                    System.out.println("Aus Liste gelöscht");
-                    
-                    verfuegbareBauarbeiterPop.removeItemAt(verfuegbareBauarbeiterPop.getSelectedIndex());
-                    System.out.println("Aus Pop gelöscht");
-                    
-                    auftrag.addBauarbeiterToListe(tempBauarbeiter);
-                    System.out.println("Zu Liste hinzu");
+                hinzufuegenA.addActionListener((java.awt.event.ActionEvent e) -> {
                    
-                    
+                   if(auftrag.getArchitekt() != null){
+                        Architekt tempAAlt = auftrag.getArchitekt();
+                        main.architektListe.add(tempAAlt); //Alter Architekt zur Main
+                        architektPop.addItem(tempAAlt.getName()); //Alter Architekt zum Pop
+                   }
+                   
+                   Architekt tempANeu = main.architektListe.get(architektPop.getSelectedIndex());
+                   architektPop.removeItemAt(architektPop.getSelectedIndex()); //Neuer Architekt aus Pop gelöscht
+                   aktuellerArchitekt.setText(tempANeu.getName()); //Name des NeuenArchitekten auf Label gesetzt
+                   auftrag.setArchitekt(tempANeu); //Neuer Architekt zum Auftrag hinzugefügt
+                   main.architektListe.remove(architektPop.getSelectedIndex());
+                });
+                
+                entfernenA.addActionListener((java.awt.event.ActionEvent e) -> {
+                    if(auftrag.getStatiker() != null){
+                        Architekt tempArchitekt = auftrag.getArchitekt();
+                        aktuellerArchitekt.setText("Kein Architekt");
+                        auftrag.setArchitekt(null);
+                        main.architektListe.add(tempArchitekt);
+                        architektPop.addItem(tempArchitekt.getName());
+                    }
                 });
                 
                 break;
                 
-                
-            case 1: 
-                JLabel aktuellerArchitektLabel = new JLabel("Aktueller Architekt");
-                JLabel verfuegbareArchitektLabel = new JLabel("Liste der verfügbaren Architekten");
-                JButton hinzufuegenA = new JButton("<---");
-                JButton entfernenA = new JButton("--->");
-                JButton speichernA = new JButton("Speichern");
-                JLabel aktuellerArchitekt = new JLabel(auftrag.getArchitekt().getName());
-       
-                
-                JComboBox architektPop = new JComboBox();
-                for(int i = 0; i < main.architektListe.size(); i++){
-                architektPop.addItem(main.architektListe.get(i).getName());
-                }
-                
-                break;
-                
             case 2:
-                JLabel aktuellerStatikerLabel = new JLabel("Aktueller Statiker");
-                JLabel verfuegbareStatikerLabel = new JLabel("Liste der verfügbaren Statiker");
-                JButton hinzufuegenS = new JButton("<---");
-                JButton entfernenS = new JButton("--->");
-                JButton speichernS = new JButton("Speichern");
+                verschiebenFrame.setLocation(910, 680);
+                newLabel("Aktueller Statiker", verschiebenPanel);
+                newLabel("", verschiebenPanel);
+                newLabel("Liste der verfügbaren Statiker", verschiebenPanel);
                 JLabel aktuellerStatiker = new JLabel("Kein Statiker");
                 if(auftrag.getStatiker() != null){
                     aktuellerStatiker.setText(auftrag.getStatiker().getName());
                 }
+                verschiebenPanel.add(aktuellerStatiker);
+                JButton hinzufuegenS = newButton("<---", verschiebenPanel);
                 JComboBox statikerPop = new JComboBox();
                 if(main.statikerListe != null){
                 for(int i = 0; i < main.statikerListe.size(); i++){
-                statikerPop.addItem(main.statikerListe.get(i).getName());
+                    statikerPop.addItem(main.statikerListe.get(i).getName());
                 }}
+                verschiebenPanel.add(statikerPop);
+                newLabel("", verschiebenPanel);
+                JButton entfernenS = newButton("--->", verschiebenPanel);
+   
+                hinzufuegenS.addActionListener((java.awt.event.ActionEvent e) -> {
+                   
+                   if(auftrag.getStatiker() != null){
+                        Statiker tempSAlt = auftrag.getStatiker();
+                        main.statikerListe.add(tempSAlt); //Alter Statiker zur Main
+                        statikerPop.addItem(tempSAlt.getName()); //Alter Statiker zum Pop
+                   }
+                   
+                   Statiker tempSNeu = main.statikerListe.get(statikerPop.getSelectedIndex());
+                   statikerPop.removeItemAt(statikerPop.getSelectedIndex()); //Neuer Architekt aus Pop gelöscht
+                   aktuellerStatiker.setText(tempSNeu.getName()); //Name des NeuenArchitekten auf Label gesetzt
+                   auftrag.setStatiker(tempSNeu); //Neuer Architekt zum Auftrag hinzugefügt
+                   main.statikerListe.remove(statikerPop.getSelectedIndex());
+
+
+                });
+                
+                entfernenS.addActionListener((java.awt.event.ActionEvent e) -> {
+                  if(auftrag.getStatiker() != null){
+                    Statiker tempStatiker = auftrag.getStatiker();
+                    aktuellerStatiker.setText("Kein Statiker");
+                    auftrag.setStatiker(null);            
+                    main.statikerListe.add(tempStatiker);
+                    statikerPop.addItem(tempStatiker.getName());
+                  }
+                });
+                
                 break;
           
             case 3:
-                JLabel aktuellerProjektleiterLabel = new JLabel("Aktueller Projektleiter");
-                JLabel verfuegbareProjektleiterLabel = new JLabel("Liste der verfügbaren Projektleiter");
-                JButton hinzufuegenP = new JButton("<---");
-                JButton entfernenP = new JButton("--->");
-                JButton speichernP = new JButton("Speichern");
-                JLabel aktuellerProjektleiter = new JLabel(auftrag.getProjektleiter().getName());
-                
-                JComboBox projektleiterPop = new JComboBox();
-                for(int i = 0; i < main.projektleiterListe.size(); i++){
-                projektleiterPop.addItem(main.projektleiterListe.get(i).getName());
+                verschiebenFrame.setLocation(910, 780);
+                newLabel("Aktueller Projektleiter", verschiebenPanel);
+                newLabel("", verschiebenPanel);
+                newLabel("Liste der verfügbaren Projektleiter", verschiebenPanel);
+                JLabel aktuellerProjektleiter = new JLabel("Kein Projektleiter");
+                if(auftrag.getProjektleiter() != null){
+                    aktuellerProjektleiter.setText(auftrag.getProjektleiter().getName());
                 }
+                verschiebenPanel.add(aktuellerProjektleiter);
+                JButton hinzufuegenP = newButton("<---", verschiebenPanel);
+                JComboBox projektleiterPop = new JComboBox();
+                if(main.projektleiterListe != null){
+                for(int i = 0; i < main.projektleiterListe.size(); i++){
+                    projektleiterPop.addItem(main.projektleiterListe.get(i).getName());
+                }}
+                verschiebenPanel.add(projektleiterPop);
+                newLabel("", verschiebenPanel);
+                JButton entfernenP = newButton("--->", verschiebenPanel);
+                
+                hinzufuegenP.addActionListener((java.awt.event.ActionEvent e) -> {
+                   if(auftrag.getProjektleiter() != null){
+                        Projektleiter tempPAlt = auftrag.getProjektleiter();
+                        main.projektleiterListe.add(tempPAlt);
+                        projektleiterPop.addItem(tempPAlt.getName());
+                   } 
+                   Projektleiter tempPNeu = main.projektleiterListe.get(projektleiterPop.getSelectedIndex());
+                   main.projektleiterListe.remove(projektleiterPop.getSelectedIndex());
+                   projektleiterPop.removeItemAt(projektleiterPop.getSelectedIndex()); //Neuer Architekt aus Pop gelöscht
+                   aktuellerProjektleiter.setText(tempPNeu.getName()); //Name des NeuenArchitekten auf Label gesetzt
+                   auftrag.setProjektleiter(tempPNeu); //Neuer Architekt zum Auftrag hinzugefügt
+                
+                });
+                
+                entfernenP.addActionListener((java.awt.event.ActionEvent e) -> {
+                    if(auftrag.getProjektleiter() != null){
+                        Projektleiter tempProjektleiter = auftrag.getProjektleiter();                
+                        aktuellerProjektleiter.setText("Kein Projektleiter");
+                        auftrag.setProjektleiter(null);  
+                        main.projektleiterListe.add(tempProjektleiter);
+                        projektleiterPop.addItem(tempProjektleiter.getName());
+                   }
+                });
+                
                 break;
         }
         
         
-  } //Muss noch gemacht werden
+  } // !!! Fertig und gekürzt !!!
    
-   //Fehlerframe -----------------------------------------------------------------------------------------------------------------  
-   public void fehlerFrame () {
-       
-        JDialog fehlerFrame = new JDialog();
-        fehlerFrame.setSize(340,100);
-        fehlerFrame.setLocation(700, 700);
-        fehlerFrame.setResizable(false);
-        JPanel fehlerPanel = new JPanel();
-        fehlerFrame.setTitle("Fehler");
-        
-        JLabel fehlerLabel1 = new JLabel("Es ist zu einem Fehler gekommen.", JLabel.CENTER);
-        JLabel fehlerlabel2 = new JLabel("Es sind nicht alle Pflichtfelder ausgefüllt.", JLabel.CENTER);
-        JButton fehlerButton = new JButton("OK");
-        
+   //Extraframes -----------------------------------------------------------------------------------------------------------------  
+   private void fehlerFrame () {
+        JPanel fehlerPanel = givePanel(2,1); 
+        JDialog fehlerFrame = giveFrame("Fehler", 340, 100, 700, 700, fehlerPanel);
+
+        JLabel fehlerLabel1 = new JLabel("Es ist zu einem Fehler gekommen.", JLabel.CENTER), fehlerlabel2 = new JLabel("Es sind nicht alle Pflichtfelder ausgefüllt.", JLabel.CENTER);  
         fehlerPanel.add(fehlerLabel1);
         fehlerPanel.add(fehlerlabel2);
-        fehlerPanel.add(fehlerButton);
-       
-        fehlerFrame.add(fehlerPanel);
-        fehlerFrame.setVisible(true);
+        JButton fehlerButton = newButton("OK", fehlerPanel);
         
         fehlerButton.addActionListener((java.awt.event.ActionEvent e) -> {
             fehlerFrame.setVisible(false);
         });
         
-   } //Fertig
+   } // !!! Fertig und gekürzt !!!
    
+   private void auftragLoeschen (Auftrag auftrag, int index) {
+        JPanel aLoeschenPanel = givePanel(2,1); 
+        JDialog aLoeschenFrame = giveFrame("Auftrag löschen", 340, 100, 700, 700, aLoeschenPanel);
 
-} 
+        newLabelM("Auftrag " + auftrag.getTitel() + " wirklich löschen?", aLoeschenPanel);  
+        JButton loeschenButton = newButton("Löschen", aLoeschenPanel);
+        
+        loeschenButton.addActionListener((java.awt.event.ActionEvent e) -> {
+            if(auftrag.getArchitekt() != null){
+               main.architektListe.add(auftrag.getArchitekt());
+            }
+            if(auftrag.getStatiker() != null){
+               main.statikerListe.add(auftrag.getStatiker());
+            }
+            if(auftrag.getProjektleiter() != null){
+               main.projektleiterListe.add(auftrag.getProjektleiter());
+            }
+            if(auftrag.getBauarbeiterListe() != null){
+               for(int i = 0; i < auftrag.getBauarbeiterListe().size(); i++){
+                   main.bauarbeiterListe.add(auftrag.getBauarbeiterListe().get(i));
+               }
+            }
+            main.auftragListe.remove(index);    
+        });
+        
+   } // !!! Fertig und gekürzt !!!
+   
+   //Hilfsmethoden ---------------------------------------------------------------------------------------------------
+   private JDialog giveFrame (String titel, int gx, int gy, int px, int py, JPanel panel){
+        JDialog newFrame = new JDialog();
+        newFrame.setSize(gx,gy);
+        newFrame.setTitle(titel);
+        newFrame.setLocation(px, py);
+        newFrame.setResizable(false);
+        newFrame.add(panel);
+        newFrame.setVisible(true);
+        return newFrame;
+   }
+   
+   private JPanel givePanel (int zeilen, int spalten){
+        JPanel newPanel = new JPanel();
+        newPanel.setLayout( new java.awt.GridLayout( zeilen, spalten ) );
+        return newPanel;
+   }
+   
+   private void newLabel(String newLabelText, JPanel panel){
+            JLabel label = new JLabel(newLabelText);
+            panel.add(label); 
+   }
+   
+   private void newLabelM(String newLabelText, JPanel panel){
+            JLabel label = new JLabel(newLabelText, JLabel.CENTER);
+            panel.add(label);
+   }
+   
+   private JTextField newTF(String newTFText, JPanel panel){
+       JTextField textField = new JTextField(newTFText);
+       panel.add(textField);
+       return textField;
+   }
+   
+   private JButton newButton(String newButtonText, JPanel panel){
+       JButton button = new JButton(newButtonText);
+       panel.add(button);
+       return button;
+   }
+   
+   private String checkNull (int checkValue, String textTrue, String textFalse){
+       if(checkValue != 0){
+           return textTrue;
+       } else{
+           return textFalse;
+       } 
+   }
+   
+   private JMenuItem setMenuSub (JMenu top, String sub){
+        JMenuItem subMen = new JMenuItem(sub);
+        top.add(subMen);
+        return subMen;
+   }
+}
