@@ -7,67 +7,43 @@ package baufirma;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import javax.swing.*;
 
 
 /**
  *
  * @author pascalschulze, tilllehmann
  */
+
 public class main {
-
-    /**
-     * @param args the command line arguments
-     */
-    
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-
+    private static final String ANSI_RESET = "\u001B[0m", ANSI_BLACK = "\u001B[30m", 
+            ANSI_RED = "\u001B[31m", ANSI_GREEN = "\u001B[32m", ANSI_YELLOW = "\u001B[33m", 
+            ANSI_BLUE = "\u001B[34m", ANSI_PURPLE = "\u001B[35m", ANSI_CYAN = "\u001B[36m", 
+            ANSI_WHITE = "\u001B[37m";  
+            
     public static ArrayList<Auftrag> auftragListe;
     public static ArrayList<Projektleiter> projektleiterListe;
     public static ArrayList<Statiker> statikerListe;
     public static ArrayList<Architekt> architektListe;
     public static ArrayList<Bauarbeiter> bauarbeiterListe;
-    public static Scanner s;                
-    public static String content;
+    public static Scanner s;                  
     public static boolean statement;
     
-    public static void main(String[] args) {                
-        s = new Scanner (System.in);
-        content = null;
-        
-        auftragListe = new ArrayList<>();       
-        auftragListe = (ArrayList<Auftrag>)ReadFromFile.read ("auftragListe.data");                
-
-        projektleiterListe = new ArrayList<>();
-        projektleiterListe = (ArrayList<Projektleiter>)ReadFromFile.read ("projektleiterListe.data");               
-        
-        statikerListe = new ArrayList<>();
-        statikerListe = (ArrayList<Statiker>)ReadFromFile.read ("statikerListe.data");               
-        
-        architektListe = new ArrayList<>();
-        architektListe = (ArrayList<Architekt>)ReadFromFile.read ("architektListe.data");               
-        
-        bauarbeiterListe = new ArrayList<>();
+    public static void main(String[] args) {                        
+        auftragListe = (ArrayList<Auftrag>)ReadFromFile.read ("auftragListe.data");                      
+        projektleiterListe = (ArrayList<Projektleiter>)ReadFromFile.read ("projektleiterListe.data");                               
+        statikerListe = (ArrayList<Statiker>)ReadFromFile.read ("statikerListe.data");                              
+        architektListe = (ArrayList<Architekt>)ReadFromFile.read ("architektListe.data");                               
         bauarbeiterListe = (ArrayList<Bauarbeiter>)ReadFromFile.read ("bauarbeiterListe.data");              
         
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            public void run() {
-              WriteToFile.write(auftragListe, "auftragListe.data");
-              WriteToFile.write(projektleiterListe, "projektleiterListe.data");
-              WriteToFile.write(statikerListe, "statikerListe.data");
-              WriteToFile.write(architektListe, "architektListe.data");
-              WriteToFile.write(bauarbeiterListe, "bauarbeiterListe.data");         
-            }
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            WriteToFile.write(auftragListe, "auftragListe.data");
+            WriteToFile.write(projektleiterListe, "projektleiterListe.data");
+            WriteToFile.write(statikerListe, "statikerListe.data");
+            WriteToFile.write(architektListe, "architektListe.data");
+            WriteToFile.write(bauarbeiterListe, "bauarbeiterListe.data");
         }, "Shutdown-thread"));
         
+<<<<<<< HEAD
 
         prhr();
        // prln("Möchten Sie das visuelle Interface starten? ( 1 : Ja / 0: Nein )");
@@ -484,81 +460,24 @@ public class main {
             default:
                 
                 break;
-        }
-    }
-    
-    public static void printAngestellten (ArrayList<? extends Angestellter> liste) {
-        prhr();
-        prln("0 : Baufirma Manager beenden", ANSI_BLUE);
-        for (int i = 0; i < liste.size(); i++) {
-               prln((i+1) + " : " + liste.get(i).getName(), ANSI_BLUE);
-        }
-                        
-        int num = s.nextInt();
-        s.nextLine();
-        
-        if (num == 0) {
-            statement = false;
-            return;
-        }
-        
+=======
         prhr();
         
-        prln("Name : " + liste.get(num-1).getName());
-        prln("Adresse : ");
-        printAdresse(liste.get(num-1).getAdresse());
-        prln("Gehalt : " + liste.get(num-1).getGehalt());
+        s = new Scanner(System.in);
         
-        prln ("Möchten Sie den Angestellten verändern?", ANSI_BLUE);
-        prln ("0 : Nicht verändern", ANSI_BLUE);
-        prln ("1 : Angestellten entlassen", ANSI_BLUE);
-        prln ("2 : Angestellten bearbeiten", ANSI_BLUE);
-        
-        int choice = s.nextInt();
-        s.nextLine();
-        switch (choice) {
-            case 1:
-                liste.remove(num-1);
-                prln("Der Angestellte wurde entlassen.", ANSI_RED);
-                break;            
-            case 2:
-                editAngestellten(liste.get(num-1));
-                break;                
-            default:
-                
-                break;
-        }             
-    }
-    
-    public static void editAngestellten(Angestellter angestellter) {
-        prhr();
-        prln("Welches Attribut soll bearbeitet werden?");
-        prln("0 : Baufirma Manager beenden", ANSI_BLUE);
-        prln("1 : Name", ANSI_BLUE);
-        prln("2 : Gehalt", ANSI_BLUE);
-        prln("3 : Adresse", ANSI_BLUE);
-        
-        int choice = s.nextInt();
-        s.nextLine();
-        switch (choice) {            
-            case 1:
-                setColor(ANSI_GREEN);
-                angestellter.setName(s.nextLine());
-                break;
-            case 2:
-                setColor(ANSI_GREEN);
-                angestellter.setGehalt(s.nextInt());
-                s.nextLine();
-                break;
-            case 3:
-                angestellter.setAdresse(editAdresse(angestellter.getAdresse(), true));
-                break;              
-            default:
-                statement = false;
-                break;
+        prln("Möchten Sie das visuelle Interface starten? ( 1 : Ja / 0: Nein )");
+        if (s.nextInt() == 1) {
+            Frame masterFrame = new Frame();
+            masterFrame.frameErstellen();
         }
-        prln("Angestellter wurde aktualisiert.", ANSI_RED);    
-    }
+        s.nextLine();        
+        
+        statement = true;
+        while (statement) {            
+            statement = Interface.startTextInterface();        
+>>>>>>> origin/master
+        }
+    }          
     
     public static void prln (String string) {
         System.out.println(ANSI_RESET + string);        

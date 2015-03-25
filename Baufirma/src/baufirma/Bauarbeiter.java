@@ -12,7 +12,8 @@ package baufirma;
 public class Bauarbeiter extends Angestellter  {
     String bauarbeiterTyp;
     
-    public void Bauarbeiter () {
+    public Bauarbeiter () {
+        super();
         aktiv = false;
     }
     

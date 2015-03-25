@@ -25,8 +25,12 @@ public class Auftrag extends Object implements Serializable {
     ArrayList<String[]> aufgabenListe;
   
     public Auftrag () { 
+<<<<<<< HEAD
         super();
         this.setBauarbeiterListe(new ArrayList<Bauarbeiter>());        
+=======
+        bauarbeiterListe = new ArrayList<>();
+>>>>>>> origin/master
         materialListe = new ArrayList<>();
     }
     
@@ -112,6 +116,14 @@ public class Auftrag extends Object implements Serializable {
     
     public void addBauarbeiterToListe (Bauarbeiter neuerBauarbeiter) {        
         bauarbeiterListe.add(neuerBauarbeiter);
+    }
+    
+    public void removeBauarbeiterFromListe (int index) {
+        bauarbeiterListe.remove(index);
+    }
+    
+    public Bauarbeiter getBauarbeiterFromListe (int index) {
+        return bauarbeiterListe.get(index);
     }
     
     public void addMaterialToListe (Material neuesMaterial) {

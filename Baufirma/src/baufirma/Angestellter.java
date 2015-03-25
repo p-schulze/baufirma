@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author pascalschulze
  */
-public class Angestellter extends Object implements Serializable {
+public class Angestellter implements Serializable {
     String name;
     Adresse adresse;
     float gehalt;

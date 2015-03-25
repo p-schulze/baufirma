@@ -10,12 +10,11 @@ package baufirma;
  *
  * @author pascalschulze
  */
-public class Projektleiter extends Angestellter {
-    
-    public Boolean ersteHilfeAusbildung;
-    
-    public void Projektleiter () { 
+public class Projektleiter extends Angestellter {    
+    public boolean ersteHilfeAusbildung;        
         
+    public Projektleiter () { 
+        super();
     }
     
     public void setErsteHilfe (Boolean trueOderFalse){
