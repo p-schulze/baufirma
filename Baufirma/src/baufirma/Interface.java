@@ -70,10 +70,10 @@ public class Interface {
                 break;
             case 4:
                 // Angestellte/n anzeigen/ bearbeiten
+                prhr();
                 showAngestelltenTypen();                
                 angestelltenTyp = getInt();
-                if (angestelltenTyp > 0) {    
-                    prhr();
+                if (angestelltenTyp > 0) {                        
                     showAngestellte(getAngestelltenListByNum(angestelltenTyp));
                     prln("Wählen Sie einen Angestellten!");
                     int angestellterNum = getInt();
@@ -311,7 +311,6 @@ public class Interface {
             case 1:
                 prhr();
                 prln("Aus welchem Auftrag möchten Sie den Angestellten verschieben?");
-
                 showAlleAuftraege(main.auftragListe);
                 auftragNum = getInt();
                 if (auftragNum <= 0) break;
@@ -453,7 +452,6 @@ public class Interface {
     }
         
     private static void showAlleAuftraege (ArrayList<Auftrag> auftragListe) {
-        prhr();
         prln("0 : Zum Hauptmenü", BLUE);
         for (int i = 0; i < auftragListe.size(); i++) {
                prln((i+1) + " : " + auftragListe.get(i).getTitel(), BLUE);
