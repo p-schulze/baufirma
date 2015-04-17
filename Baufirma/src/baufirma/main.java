@@ -45,10 +45,10 @@ public class main {
         }, "Shutdown-thread"));        
 
         prhr();
-        prln("Möchten Sie das visuelle Interface starten? ( 1 : Ja / 0: Nein )");
-        if (s.nextInt() == 1) {
+       // prln("Möchten Sie das visuelle Interface starten? ( 1 : Ja / 0: Nein )");
+        
             Frame masterFrame = new Frame();
-            masterFrame.startMenu();
+            masterFrame.login();
             System.out.println("Listen leeren?");
             if (s.nextInt() == 1) {
                 bauarbeiterListe = null;
@@ -64,7 +64,7 @@ public class main {
                 }
             
             }
-        }
+        
         s.nextLine();
                 
         statement = true;
