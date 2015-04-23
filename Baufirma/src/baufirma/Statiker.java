@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author pascalschulze
  */
 public class Statiker extends Angestellter {
-    public void Statiker () { 
-        
+    public Statiker () { 
+        super();
     }
 }

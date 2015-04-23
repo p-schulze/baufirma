@@ -42,7 +42,7 @@ public class main {
             WriteToFile.write(statikerListe, "statikerListe.data");
             WriteToFile.write(architektListe, "architektListe.data");
             WriteToFile.write(bauarbeiterListe, "bauarbeiterListe.data");
-        }, "Shutdown-thread"));        
+        }, "Shutdown-thread"));
 
         prhr();
        // prln("Möchten Sie das visuelle Interface starten? ( 1 : Ja / 0: Nein )");
@@ -60,9 +60,8 @@ public class main {
                 architektListe == null &&
                 statikerListe == null &&
                 projektleiterListe == null){
-                    System.out.println("Alle Listen sind leer.");
-                }
-            
+                   prln("Alle Listen sind leer.");
+                }            
             }
         
         s.nextLine();
@@ -71,7 +70,6 @@ public class main {
         while (statement) {            
             statement = Interface.startTextInterface();        
         }
-
     }         
     
     public static void prln (String string) {

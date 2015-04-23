@@ -14,12 +14,12 @@ public class WriteToFile {
     
     public static void write (ArrayList arraylist, String filename) {
         try {
-        ObjectOutputStream out;       
-        FileOutputStream file = new FileOutputStream(filename);
-        out = new ObjectOutputStream(file);
-        out.writeObject(arraylist);
+           ObjectOutputStream out;       
+           FileOutputStream file = new FileOutputStream(filename);
+           out = new ObjectOutputStream(file);
+           out.writeObject(arraylist);
 
-        out.close();
+           out.close();
         } 
         catch (FileNotFoundException ex) {
             System.out.println("Error with specified file") ;

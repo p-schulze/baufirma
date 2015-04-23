@@ -7,6 +7,8 @@ package baufirma;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.*;
+import java.lang.*;
 
 /**
  *
@@ -97,7 +99,13 @@ public class Interface {
                 }    
                 break; 
             case 5:
+                // Angestellte versetzen
                 moveAngestellten();
+                break;             
+            case 6:
+                // Angestellte sortiert anzeigen
+                showOrderingOptions();
+                showOrderedAngestellte(getInt());
                 break;                 
             default:
                 statement = false;
@@ -437,6 +445,25 @@ public class Interface {
             prln(i + " Bauarbeiter wurden zurück in die Bauarbeiterliste verschoben.", RED);
         }
     }
+    
+    private static ArrayList<Angestellter> getAlleAngestellte () {
+        ArrayList<Angestellter> list = new ArrayList<>();
+        
+        // Angestellte aus den Angestelltenlisten
+        for (int i = 1; i < 5; i++) {
+            list.addAll(getAngestelltenListByNum(i));
+        }        
+        
+        // Angestellte aus den Aufträgen
+        for (int i = 0; i < main.auftragListe.size(); i++) {
+            list.addAll(main.auftragListe.get(i).getBauarbeiterListe());
+            if (main.auftragListe.get(i).getProjektleiter() != null) list.add(main.auftragListe.get(i).getProjektleiter());
+            if (main.auftragListe.get(i).getStatiker() != null) list.add(main.auftragListe.get(i).getStatiker());
+            if (main.auftragListe.get(i).getArchitekt() != null) list.add(main.auftragListe.get(i).getArchitekt());            
+        }                        
+        
+        return list;
+    }
         
     /**************************************** Darstellungsfunktionen ****************************************/
     
@@ -449,6 +476,7 @@ public class Interface {
         prln("3 : Angestellten hinzufügen", BLUE);
         prln("4 : (unbeschäftigte) Angestellte anzeigen / verändern", BLUE);
         prln("5 : Angestellten versetzen", BLUE); 
+        prln("6 : Alle Angestellte geordnet anzeigen", BLUE); 
     }
         
     private static void showAlleAuftraege (ArrayList<Auftrag> auftragListe) {
@@ -592,6 +620,45 @@ public class Interface {
         prln("1 : Name", BLUE);
         prln("2 : Gehalt (Fließkommazahl mit Komma)", BLUE);
         prln("3 : Adresse", BLUE);
+    }
+    
+    private static void showOrderingOptions () {
+        prhr();
+        prln("Wonach soll sortiert werden?");
+        prln("0 : zum Hauptmenü", BLUE);
+        prln("1 : Name", BLUE);
+        prln("2 : Gehalt", BLUE);
+    }
+    
+    private static void showOrderedAngestellte (int type) {
+        prhr();
+        ArrayList<Angestellter> alleAngestellte = getAlleAngestellte();                
+        
+        switch (type ){
+            case 1:
+                // Name
+                
+                break;
+            case 2:
+                // Gehalt
+                int j;
+                for (int i = 1; i < alleAngestellte.size(); i++) {                    
+                    j = i;
+                    while (j >= 1 && alleAngestellte.get(j).getGehalt() < alleAngestellte.get(j-1).getGehalt()) {
+                        Collections.swap(alleAngestellte, j, j-1);
+                        j--;
+                    }
+                }
+                break;
+            default:                 
+        }
+        
+        for (int i = 0; i < alleAngestellte.size(); i++) {
+            System.out.printf("%-30.30s  %-30.30s%n", alleAngestellte.get(i).getName(), alleAngestellte.get(i).getGehalt() + "\t€");
+        }
+        
+        prln("Drücken Sie eine beliebige Taste...");
+        getString();
     }
     
     /**************************************** Hilfsfunktionen ****************************************/
