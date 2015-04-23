@@ -17,7 +17,9 @@ public class Frame {
         newLabel("   Passwort:", loginPanel);   
         newLabel("", loginPanel);
         JTextField tfUsername = newTF("", loginPanel);
-        JTextField tfPasswort = newTF("", loginPanel);        
+       // JTextField tfPasswort = newTF("", loginPanel);   
+        JPasswordField tfPasswort = new JPasswordField();
+        loginPanel.add(tfPasswort);
         JButton loginButton = newButton("Login", loginPanel);
         JDialog loginFrame = giveFrame("Login", 370, 80, 0, 0, loginPanel);
         loginButton.addActionListener((java.awt.event.ActionEvent e) -> {
@@ -52,6 +54,10 @@ public class Frame {
         backgroundFrame.add(menuBar, BorderLayout.NORTH);
         
         backgroundFrame.setVisible(true);
+        
+        menu1.addActionListener((java.awt.event.ActionEvent e) -> {
+            System.out.println("Action!");
+        });
         
         angestellter1.addActionListener((java.awt.event.ActionEvent e) -> {
             neuerArbeiterFrame();

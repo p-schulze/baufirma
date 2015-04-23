@@ -5,6 +5,7 @@
         <group>
 <<<<<<< Updated upstream
             <file>file:/Users/pascalschulze/2.%20Schule/Unterricht/12_Q2/INFO/baufirma/baufirma/Baufirma/src/baufirma/Frame.java</file>
+<<<<<<< Updated upstream
 =======
             <file>file:/Users/Lehmann/Schule/Sek%20II/Informatik/Java/baufirma/Baufirma/src/baufirma/Statiker.java</file>
             <file>file:/Users/Lehmann/Schule/Sek%20II/Informatik/Java/baufirma/Baufirma/src/baufirma/Interface.java</file>
@@ -15,6 +16,9 @@
             <file>file:/Users/Lehmann/Schule/Sek%20II/Informatik/Java/baufirma/Baufirma/src/baufirma/WriteToFile.java</file>
             <file>file:/Users/Lehmann/Schule/Sek%20II/Informatik/Java/baufirma/Baufirma/src/baufirma/Bauarbeiter.java</file>
             <file>file:/Users/Lehmann/Schule/Sek%20II/Informatik/Java/baufirma/Baufirma/src/baufirma/Angestellter.java</file>
+>>>>>>> Stashed changes
+=======
+            <file>file:/Users/pascalschulze/2.%20Schule/Unterricht/12_Q2/INFO/baufirma/baufirma/Baufirma/src/baufirma/WriteToFile.java</file>
 >>>>>>> Stashed changes
         </group>
     </open-files>
