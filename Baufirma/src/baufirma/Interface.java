@@ -697,4 +697,5 @@ public class Interface {
     private static void setColor (String color) {
          System.out.print(color);
     }
+        
 }
