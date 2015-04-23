@@ -48,7 +48,7 @@ public class main {
         prln("Möchten Sie das visuelle Interface starten? ( 1 : Ja / 0: Nein )");
         if (s.nextInt() == 1) {
             Frame masterFrame = new Frame();
-            masterFrame.login();
+            masterFrame.login();            
             System.out.println("Listen leeren?");
             if (s.nextInt() == 1) {
                 bauarbeiterListe = null;

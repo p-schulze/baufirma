@@ -633,15 +633,21 @@ public class Interface {
     private static void showOrderedAngestellte (int type) {
         prhr();
         ArrayList<Angestellter> alleAngestellte = getAlleAngestellte();                
+        int j;
         
         switch (type ){
             case 1:
-                // Name
-                
+                // Name               
+                for (int i = 1; i < alleAngestellte.size(); i++) {                    
+                    j = i;
+                    while (j >= 1 && alleAngestellte.get(j).getName().compareTo(alleAngestellte.get(j-1).getName()) < 0) {
+                        Collections.swap(alleAngestellte, j, j-1);
+                        j--;
+                    }
+                }
                 break;
             case 2:
-                // Gehalt
-                int j;
+                // Gehalt                
                 for (int i = 1; i < alleAngestellte.size(); i++) {                    
                     j = i;
                     while (j >= 1 && alleAngestellte.get(j).getGehalt() < alleAngestellte.get(j-1).getGehalt()) {
@@ -657,7 +663,7 @@ public class Interface {
             System.out.printf("%-30.30s  %-30.30s%n", alleAngestellte.get(i).getName(), alleAngestellte.get(i).getGehalt() + "\t€");
         }
         
-        prln("Drücken Sie eine beliebige Taste...");
+        prln("Drücken Sie eine beliebige Taste...", BLUE);
         getString();
     }
     
